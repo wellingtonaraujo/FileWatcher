@@ -1,0 +1,10 @@
+com\wellington\filewatcher\FileWatcher.class
+com\wellington\filewatcher\AppConfig$AdminCredentials.class
+com\wellington\filewatcher\AppConfig.class
+com\wellington\filewatcher\ClienteConfigDialog.class
+com\wellington\filewatcher\DatabaseConnection.class
+com\wellington\filewatcher\SystemTrayHelper.class
+com\wellington\filewatcher\AdminLoginDialog.class
+com\wellington\filewatcher\SystemTrayHelper$1.class
+com\wellington\filewatcher\FileInfoDialog.class
+com\wellington\filewatcher\DatabaseHelper.class
