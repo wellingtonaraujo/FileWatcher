@@ -2,6 +2,7 @@ package com.wellington.filewatcher;
 
 import java.util.Properties;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.*;
 import static java.nio.file.StandardWatchEventKinds.*;
 import javax.swing.SwingUtilities;
@@ -9,6 +10,7 @@ import javax.swing.SwingUtilities;
 import com.wellington.filewatcher.AppConfig;
 import com.wellington.filewatcher.ClienteConfigDialog;
 import com.wellington.filewatcher.AdminLoginDialog;
+import com.wellington.filewatcher.ConfigUtil;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,55 +19,59 @@ public class FileWatcher {
 
     private static final String MONITORED_FOLDER = "C:\\FileWatcher\\Monitored"; // Caminho da pasta a ser monitorada    
 
-    public static void main(String[] args) {        
-        
+    public static void main(String[] args) {
+
         try {
+            // 1) Descobrir diretório de configuração do usuário final
+            Path configDir = ConfigUtil.getConfigDir();
             
-            String basePath  = System.getProperty("user.dir") + "/src/main/resources/config/";
-            File configFile = new File(basePath + "config.properties");
-            //Caso não exista o arquivo de configurações
-            if(!configFile.exists()){
+            Files.createDirectories(configDir);
+
+            Path configPath = configDir.resolve("config.properties");
+            File configFile = configPath.toFile();   // ✅ agora compila
+
+            System.out.println("Config em: " + configPath);
+            System.out.println("Existe? " + configFile.exists());
+
+            // 2) Primeira execução: não existe config.properties
+            if (!configFile.exists()) {
                 System.out.println("Primeira execução detectada - iniciando a configuração...");
-                
-                //Autenticação do administrador
+
+                // 2.1) Autenticação do administrador (cria usuário master)
                 AdminLoginDialog loginDialog = new AdminLoginDialog(null);
                 loginDialog.setVisible(true);
-                
+
                 if (!loginDialog.isAutenticado()) {
                     System.out.println("❌ Autenticação falhou. Encerrando.");
                     System.exit(0);
                 }
-                
-                // 2️⃣ Formulário de dados do cliente
+
+                // 2.2) Formulário de dados do cliente (gera as propriedades)
                 ClienteConfigDialog clienteDialog = new ClienteConfigDialog(null);
                 clienteDialog.setVisible(true);
 
                 if (clienteDialog.isConfirmado()) {
-                    salvarConfigProperties(basePath, clienteDialog.getClienteProps());
-                    System.out.println("✅ Arquivo config.properties criado com sucesso!");
+                    salvarConfigProperties(configDir, clienteDialog.getClienteProps());
+                    System.out.println("✅ Arquivo config.properties criado com sucesso em: " + configPath);
                 } else {
                     System.out.println("⚠️ Operação cancelada pelo administrador.");
                     System.exit(0);
                 }
             }
-            
-            System.out.println(configFile);
-            System.exit(0);
-            
-            //Executa a aplicação
-            
+
+            // 3) Daqui pra frente, o sistema já tem config.properties garantido
+            //    Aqui você pode carregar AppConfig, iniciar SystemTrayHelper, monitor etc.
+
             SystemTrayHelper.initializeTray();
+
             Path path = Paths.get(MONITORED_FOLDER);
             WatchService watchService = FileSystems.getDefault().newWatchService();
-
-            // Registrar eventos de criação, modificação e deleção
             path.register(watchService, ENTRY_CREATE);
 
             System.out.println("👀 Monitorando a pasta: " + MONITORED_FOLDER);
 
-            // Loop infinito que escuta mudanças
             while (true) {
-                WatchKey key = watchService.take(); // Espera evento
+                WatchKey key = watchService.take();
 
                 for (WatchEvent<?> event : key.pollEvents()) {
                     WatchEvent.Kind<?> kind = event.kind();
@@ -74,7 +80,6 @@ public class FileWatcher {
                         Path newFile = path.resolve((Path) event.context());
                         System.out.println("📂 Novo arquivo detectado: " + newFile);
 
-                        // Exibe popup em thread de interface
                         SwingUtilities.invokeLater(() -> {
                             FileInfoDialog dialog = new FileInfoDialog(newFile.toFile());
                             dialog.setVisible(true);
@@ -86,19 +91,19 @@ public class FileWatcher {
                 if (!valid) {
                     break;
                 }
-            }   
-                                 
+            }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
-            
-    private static void salvarConfigProperties(String basePath, Properties props) throws IOException {
-        File dir = new File(basePath);
-        if (!dir.exists()) dir.mkdirs();
 
-        try (FileWriter writer = new FileWriter(new File(dir, "config.properties"))) {
+            
+    private static void salvarConfigProperties(Path configDir, Properties props) throws IOException {
+        Files.createDirectories(configDir);
+
+        File file = configDir.resolve("config.properties").toFile();  // ✅ converte Path → File
+        try (FileWriter writer = new FileWriter(file)) {
             props.store(writer, "Configurações do cliente");
         }
     }

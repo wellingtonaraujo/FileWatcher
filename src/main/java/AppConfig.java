@@ -14,32 +14,48 @@ import java.util.Properties;
 
 public class AppConfig {
 
-    private static final String CONFIG_DIR = System.getProperty("user.dir") + "/src/main/resources/config/";
-    private static final Path CONFIG_FILE = Paths.get(CONFIG_DIR, "config.properties");
-    private static final Path UID_APP = Paths.get(CONFIG_DIR, "uid.app");
-    private static final Path UID_KEY = Paths.get(CONFIG_DIR, "uid.key");
-    private static final int AES_KEY_SIZE = 256; // bits
-    private static final int GCM_IV_LENGTH = 12; // bytes
+    // Diretório de configuração do usuário final
+    // >>> AGORA usando o mesmo diretório que você já usa no resto do sistema <<<
+    private static final Path CONFIG_DIR  = ConfigUtil.getConfigDir();
+
+    // Arquivo principal de configuração
+    private static final Path CONFIG_FILE = CONFIG_DIR.resolve("config.properties");
+
+    // Arquivos de credenciais do administrador
+    private static final Path UID_APP = CONFIG_DIR.resolve("uid.app"); // login + dica
+    private static final Path UID_KEY = CONFIG_DIR.resolve("uid.key"); // senha criptografada
+
+    private static final int AES_KEY_SIZE   = 256; // bits
+    private static final int GCM_IV_LENGTH  = 12;  // bytes
     private static final int GCM_TAG_LENGTH = 128; // bits
 
     private static final SecureRandom secureRandom = new SecureRandom();
 
+    // ---------- Utilitário: garantir diretório ----------
+    private static void ensureConfigDir() throws IOException {
+        Files.createDirectories(CONFIG_DIR);
+    }
+
     // ---------- Key generation / load ----------
     private static SecretKey loadOrCreateKey() throws IOException {
-        if (Files.exists(UID_KEY)) {
-            byte[] encoded = Files.readAllBytes(UID_KEY);
-            byte[] keyBytes = Base64.getDecoder().decode(new String(encoded, StandardCharsets.UTF_8).trim());
-            return new SecretKeySpec(keyBytes, "AES");
-        } else {
-            try {
+        try {
+            ensureConfigDir();
+
+            if (Files.exists(UID_KEY)) {
+                byte[] encoded = Files.readAllBytes(UID_KEY);
+                byte[] keyBytes = Base64.getDecoder().decode(
+                        new String(encoded, StandardCharsets.UTF_8).trim()
+                );
+                return new SecretKeySpec(keyBytes, "AES");
+            } else {
                 KeyGenerator kg = KeyGenerator.getInstance("AES");
                 kg.init(AES_KEY_SIZE, secureRandom);
                 SecretKey key = kg.generateKey();
 
                 // Salva a chave em base64
                 String b64 = Base64.getEncoder().encodeToString(key.getEncoded());
-                Files.createDirectories(UID_KEY.getParent());
-                Files.write(UID_KEY, b64.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE_NEW);
+                Files.write(UID_KEY, b64.getBytes(StandardCharsets.UTF_8),
+                        StandardOpenOption.CREATE_NEW);
 
                 try {
                     UID_KEY.toFile().setReadable(false, false);
@@ -50,9 +66,9 @@ public class AppConfig {
                 } catch (Exception ignored) { }
 
                 return key;
-            } catch (Exception e) {
-                throw new IOException("Erro ao gerar chave AES: " + e.getMessage(), e);
             }
+        } catch (Exception e) {
+            throw new IOException("Erro ao gerar/carregar chave AES: " + e.getMessage(), e);
         }
     }
 
@@ -76,7 +92,9 @@ public class AppConfig {
     // ---------- Decrypt ----------
     private static String decrypt(SecretKey key, String b64Combined) throws Exception {
         byte[] combined = Base64.getDecoder().decode(b64Combined);
-        if (combined.length < GCM_IV_LENGTH) throw new IllegalArgumentException("Dados inválidos para descriptografia");
+        if (combined.length < GCM_IV_LENGTH) {
+            throw new IllegalArgumentException("Dados inválidos para descriptografia");
+        }
 
         byte[] iv = new byte[GCM_IV_LENGTH];
         System.arraycopy(combined, 0, iv, 0, iv.length);
@@ -95,21 +113,30 @@ public class AppConfig {
     // ---------- Salvar credenciais ----------
     public static void saveAdminCredentials(String login, String senha, String dicaSenha) throws IOException {
         try {
+            ensureConfigDir();
+
             SecretKey key = loadOrCreateKey();
             String senhaEnc = encrypt(key, senha);
 
-            // Salva apenas login e dica no uid.app
+            // Salva login e dica no uid.app
             Properties p = new Properties();
             p.setProperty("admin.login", login);
-            p.setProperty("admin.dica.senha", dicaSenha);
+            p.setProperty("admin.dica.senha", dicaSenha); // <- chave correta
 
-            Files.createDirectories(UID_APP.getParent());
-            try (OutputStream out = Files.newOutputStream(UID_APP, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+            try (OutputStream out = Files.newOutputStream(
+                    UID_APP,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.TRUNCATE_EXISTING
+            )) {
                 p.store(out, "Credenciais do administrador (somente login e dica da senha)");
             }
 
             // Salva a senha criptografada separadamente no uid.key (substituindo o conteúdo)
-            Files.write(UID_KEY, senhaEnc.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(UID_KEY,
+                    senhaEnc.getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.TRUNCATE_EXISTING
+            );
 
             try {
                 UID_APP.toFile().setReadable(false, false);
@@ -133,7 +160,8 @@ public class AppConfig {
         }
 
         String login = p.getProperty("admin.login", "");
-        String dica = p.getProperty("admin.senha.dica", ""); // ✅ nome correto da chave
+        // chave corrigida para bater com o saveAdminCredentials
+        String dica  = p.getProperty("admin.dica.senha", "");
 
         if (login.isEmpty()) return null;
 
@@ -142,12 +170,11 @@ public class AppConfig {
             String senhaEnc = Files.readString(UID_KEY, StandardCharsets.UTF_8);
             String senha = decrypt(key, senhaEnc);
 
-            return new AdminCredentials(login, senha, dica); // ✅ passa a dica
+            return new AdminCredentials(login, senha, dica);
         } catch (Exception e) {
             throw new IOException("Erro ao processar credenciais: " + e.getMessage(), e);
         }
     }
-
 
     public static class AdminCredentials {
         private final String login;
@@ -162,20 +189,24 @@ public class AppConfig {
 
         public String getLogin() { return login; }
         public String getSenha() { return senha; }
-        public String getHint() { return hint; }
+        public String getHint()  { return hint; }
     }
 
-
+    // ---------- Configuração do cliente ----------
     public static void saveClientConfig(String nome, String id, String dataContrato) throws IOException {
         try {
+            ensureConfigDir();
+
             Properties props = new Properties();
             props.setProperty("cliente.nome", nome);
             props.setProperty("cliente.id", id);
             props.setProperty("cliente.data_contrato", dataContrato);
 
-            Files.createDirectories(CONFIG_FILE.getParent());
-            try (OutputStream out = Files.newOutputStream(CONFIG_FILE,
-                    StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+            try (OutputStream out = Files.newOutputStream(
+                    CONFIG_FILE,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.TRUNCATE_EXISTING
+            )) {
                 props.store(out, "Configuração do cliente");
             }
             System.out.println("[DEBUG] Arquivo config.properties criado em: " + CONFIG_FILE);
@@ -188,9 +219,9 @@ public class AppConfig {
         return Files.exists(CONFIG_FILE);
     }
 
-    //Verifica se o arquivo uid.key existe
+    // Verifica se as credenciais já foram criadas (primeiro acesso ou não)
     public static boolean keyExists() {
-        return Files.exists(UID_KEY);
+        // Considera que só existe admin configurado se ambos os arquivos existirem
+        return Files.exists(UID_APP) && Files.exists(UID_KEY);
     }
-
 }
