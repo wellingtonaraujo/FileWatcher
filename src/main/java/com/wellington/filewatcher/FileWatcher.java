@@ -49,6 +49,9 @@ public class FileWatcher {
                 }
             }
             
+            System.out.println(configFile);
+            System.exit(0);
+            
             //Executa a aplicação
             
             SystemTrayHelper.initializeTray();

@@ -1,0 +1,69 @@
+########################
+# ARTEFATOS DO MAVEN   #
+########################
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+build.log
+
+########################
+# NETBEANS / IDE       #
+########################
+nbproject/private/
+nbbuild/
+nbdist/
+nbactions.xml~
+nb-configuration.xml~
+*.orig
+
+# Configurações específicas de IDEs (se usar outras)
+*.iml
+.idea/
+.vscode/
+
+########################
+# SISTEMA OPERACIONAL  #
+########################
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+$RECYCLE.BIN/
+ehthumbs.db
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Arquivos de lixeira
+.Trash-*/
+
+########################
+# LOGS / TEMPORÁRIOS   #
+########################
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.old
+
+########################
+# BUILD / INSTALADOR   #
+########################
+# Se esses arquivos forem gerados em build
+installer/dist/
+installer/output/
+runtime/
+build-installer.bat~
+
+########################
+# CONFIGURAÇÕES LOCAIS #
+########################
+# Seu config.properties gerado em runtime
+src/main/resources/config/config.properties
