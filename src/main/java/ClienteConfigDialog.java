@@ -2,6 +2,7 @@ package com.wellington.filewatcher;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.Properties;
 
 public class ClienteConfigDialog extends JDialog {
@@ -9,19 +10,33 @@ public class ClienteConfigDialog extends JDialog {
     private boolean confirmado = false;
     private final Properties clienteProps = new Properties();
 
+    private JTextField txtNome;
+    private JTextField txtId;
+    private JTextField txtData;
+
     public ClienteConfigDialog(Frame parent) {
         super(parent, "Configuração do Cliente", true);
+
+        initComponents();
+        carregarConfiguracoes(); // <<< carrega AO ABRIR
+
+        setSize(400, 200);
+        setLocationRelativeTo(parent);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    private void initComponents() {
         setLayout(new GridLayout(4, 2, 10, 10));
 
         JLabel lblNome = new JLabel("Nome do Cliente:");
-        JLabel lblId = new JLabel("ID (CNPJ ou CPF):");
+        JLabel lblId   = new JLabel("ID (CNPJ ou CPF):");
         JLabel lblData = new JLabel("Data do Contrato (AAAA-MM-DD):");
 
-        JTextField txtNome = new JTextField();
-        JTextField txtId = new JTextField();
-        JTextField txtData = new JTextField();
+        txtNome = new JTextField();
+        txtId   = new JTextField();
+        txtData = new JTextField();
 
-        JButton btnSalvar = new JButton("Salvar");
+        JButton btnSalvar   = new JButton("Salvar");
         JButton btnCancelar = new JButton("Cancelar");
 
         add(lblNome);
@@ -33,25 +48,68 @@ public class ClienteConfigDialog extends JDialog {
         add(btnSalvar);
         add(btnCancelar);
 
-        btnSalvar.addActionListener(e -> {
-            if (txtNome.getText().isEmpty() || txtId.getText().isEmpty() || txtData.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Atenção", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
+        btnSalvar.addActionListener(e -> salvar());
+        btnCancelar.addActionListener(e -> dispose());
+    }
 
-            clienteProps.setProperty("cliente.nome", txtNome.getText().trim());
-            clienteProps.setProperty("cliente.id", txtId.getText().replaceAll("\\D", "")); // somente números
-            clienteProps.setProperty("cliente.data_contrato", txtData.getText().trim());
+    private void carregarConfiguracoes() {
+        try {
+            Properties props = AppConfig.loadConfigProperties();
+
+            System.out.println("[DEBUG] Lendo config.properties em: " + AppConfig.getConfigFilePath());
+            System.out.println("[DEBUG] cliente.nome=" + props.getProperty("cliente.nome"));
+            System.out.println("[DEBUG] cliente.id=" + props.getProperty("cliente.id"));
+            System.out.println("[DEBUG] cliente.data_contrato=" + props.getProperty("cliente.data_contrato"));
+
+            clienteProps.clear();
+            clienteProps.putAll(props);
+
+            txtNome.setText(props.getProperty("cliente.nome", ""));
+            txtId.setText(props.getProperty("cliente.id", ""));
+            txtData.setText(props.getProperty("cliente.data_contrato", ""));
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Não foi possível carregar as configurações:\n" + ex.getMessage(),
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void salvar() {
+        if (txtNome.getText().isEmpty()
+                || txtId.getText().isEmpty()
+                || txtData.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Todos os campos são obrigatórios.",
+                    "Atenção",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nome = txtNome.getText().trim();
+        String id   = txtId.getText().replaceAll("\\D", "");
+        String data = txtData.getText().trim();
+
+        clienteProps.setProperty("cliente.nome", nome);
+        clienteProps.setProperty("cliente.id", id);
+        clienteProps.setProperty("cliente.data_contrato", data);
+
+        try {
+            AppConfig.saveClientConfig(nome, id, data);
 
             confirmado = true;
+            JOptionPane.showMessageDialog(this,
+                    "Configurações salvas com sucesso!",
+                    "Informação",
+                    JOptionPane.INFORMATION_MESSAGE);
             dispose();
-        });
-
-        btnCancelar.addActionListener(e -> dispose());
-
-        setSize(400, 200);
-        setLocationRelativeTo(parent);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao salvar configurações:\n" + ex.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public boolean isConfirmado() {

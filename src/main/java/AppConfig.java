@@ -14,16 +14,16 @@ import java.util.Properties;
 
 public class AppConfig {
 
-    // Diretório de configuração do usuário final
-    // >>> AGORA usando o mesmo diretório que você já usa no resto do sistema <<<
+    // Diretório de configuração do usuário final (sempre externo)
     private static final Path CONFIG_DIR  = ConfigUtil.getConfigDir();
 
     // Arquivo principal de configuração
     private static final Path CONFIG_FILE = CONFIG_DIR.resolve("config.properties");
 
     // Arquivos de credenciais do administrador
-    private static final Path UID_APP = CONFIG_DIR.resolve("uid.app"); // login + dica
-    private static final Path UID_KEY = CONFIG_DIR.resolve("uid.key"); // senha criptografada
+    private static final Path UID_APP      = CONFIG_DIR.resolve("uid.app");     // login + dica
+    private static final Path UID_PASS     = CONFIG_DIR.resolve("uid.key");     // senha criptografada
+    private static final Path AES_KEY_FILE = CONFIG_DIR.resolve("aes.key");     // chave AES em Base64
 
     private static final int AES_KEY_SIZE   = 256; // bits
     private static final int GCM_IV_LENGTH  = 12;  // bytes
@@ -41,32 +41,61 @@ public class AppConfig {
         try {
             ensureConfigDir();
 
-            if (Files.exists(UID_KEY)) {
-                byte[] encoded = Files.readAllBytes(UID_KEY);
+            // 1) Se já existe o arquivo da chave AES, usa ele
+            if (Files.exists(AES_KEY_FILE)) {
+                byte[] encoded = Files.readAllBytes(AES_KEY_FILE);
                 byte[] keyBytes = Base64.getDecoder().decode(
                         new String(encoded, StandardCharsets.UTF_8).trim()
                 );
+                int len = keyBytes.length;
+                if (len != 16 && len != 24 && len != 32) {
+                    throw new IOException("Chave AES inválida no arquivo aes.key: " + len + " bytes");
+                }
                 return new SecretKeySpec(keyBytes, "AES");
-            } else {
-                KeyGenerator kg = KeyGenerator.getInstance("AES");
-                kg.init(AES_KEY_SIZE, secureRandom);
-                SecretKey key = kg.generateKey();
-
-                // Salva a chave em base64
-                String b64 = Base64.getEncoder().encodeToString(key.getEncoded());
-                Files.write(UID_KEY, b64.getBytes(StandardCharsets.UTF_8),
-                        StandardOpenOption.CREATE_NEW);
-
-                try {
-                    UID_KEY.toFile().setReadable(false, false);
-                    UID_KEY.toFile().setWritable(false, false);
-                    UID_KEY.toFile().setExecutable(false, false);
-                    UID_KEY.toFile().setReadable(true, true);
-                    UID_KEY.toFile().setWritable(true, true);
-                } catch (Exception ignored) { }
-
-                return key;
             }
+
+            // 2) (Opcional) Tentativa de migração de formato antigo:
+            //    Se só existe UID_PASS e não AES_KEY_FILE, pode ser que ele contenha a chave antiga em Base64.
+            if (Files.exists(UID_PASS)) {
+                try {
+                    String content = Files.readString(UID_PASS, StandardCharsets.UTF_8).trim();
+                    byte[] keyBytes = Base64.getDecoder().decode(content);
+                    int len = keyBytes.length;
+                    if (len == 16 || len == 24 || len == 32) {
+                        // Parece uma chave AES válida -> migra para aes.key
+                        Files.write(AES_KEY_FILE,
+                                content.getBytes(StandardCharsets.UTF_8),
+                                StandardOpenOption.CREATE_NEW);
+                        System.out.println("[DEBUG] Migrei chave AES antiga de uid.key para aes.key");
+                        return new SecretKeySpec(keyBytes, "AES");
+                    }
+                } catch (Exception ignored) {
+                    // Se não deu certo, cai pra geração de nova chave
+                }
+            }
+
+            // 3) Não existe chave → gera nova
+            KeyGenerator kg = KeyGenerator.getInstance("AES");
+            kg.init(AES_KEY_SIZE, secureRandom);
+            SecretKey key = kg.generateKey();
+
+            // Salva a chave em base64 em aes.key
+            String b64 = Base64.getEncoder().encodeToString(key.getEncoded());
+            Files.write(AES_KEY_FILE, b64.getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE_NEW);
+
+            try {
+                AES_KEY_FILE.toFile().setReadable(false, false);
+                AES_KEY_FILE.toFile().setWritable(false, false);
+                AES_KEY_FILE.toFile().setExecutable(false, false);
+                AES_KEY_FILE.toFile().setReadable(true, true);
+                AES_KEY_FILE.toFile().setWritable(true, true);
+            } catch (Exception ignored) { }
+
+            return key;
+
+        } catch (IOException e) {
+            throw e;
         } catch (Exception e) {
             throw new IOException("Erro ao gerar/carregar chave AES: " + e.getMessage(), e);
         }
@@ -115,13 +144,14 @@ public class AppConfig {
         try {
             ensureConfigDir();
 
+            // Garante que a chave AES exista
             SecretKey key = loadOrCreateKey();
             String senhaEnc = encrypt(key, senha);
 
             // Salva login e dica no uid.app
             Properties p = new Properties();
             p.setProperty("admin.login", login);
-            p.setProperty("admin.dica.senha", dicaSenha); // <- chave correta
+            p.setProperty("admin.dica.senha", dicaSenha);
 
             try (OutputStream out = Files.newOutputStream(
                     UID_APP,
@@ -132,7 +162,7 @@ public class AppConfig {
             }
 
             // Salva a senha criptografada separadamente no uid.key (substituindo o conteúdo)
-            Files.write(UID_KEY,
+            Files.write(UID_PASS,
                     senhaEnc.getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE,
                     StandardOpenOption.TRUNCATE_EXISTING
@@ -143,6 +173,11 @@ public class AppConfig {
                 UID_APP.toFile().setWritable(false, false);
                 UID_APP.toFile().setReadable(true, true);
                 UID_APP.toFile().setWritable(true, true);
+
+                UID_PASS.toFile().setReadable(false, false);
+                UID_PASS.toFile().setWritable(false, false);
+                UID_PASS.toFile().setReadable(true, true);
+                UID_PASS.toFile().setWritable(true, true);
             } catch (Exception ignored) { }
 
         } catch (Exception e) {
@@ -152,7 +187,7 @@ public class AppConfig {
 
     // ---------- Ler credenciais ----------
     public static AdminCredentials loadAdminCredentials() throws IOException {
-        if (!Files.exists(UID_APP) || !Files.exists(UID_KEY)) return null;
+        if (!Files.exists(UID_APP) || !Files.exists(UID_PASS)) return null;
 
         Properties p = new Properties();
         try (InputStream in = Files.newInputStream(UID_APP, StandardOpenOption.READ)) {
@@ -160,14 +195,13 @@ public class AppConfig {
         }
 
         String login = p.getProperty("admin.login", "");
-        // chave corrigida para bater com o saveAdminCredentials
         String dica  = p.getProperty("admin.dica.senha", "");
 
         if (login.isEmpty()) return null;
 
         try {
             SecretKey key = loadOrCreateKey();
-            String senhaEnc = Files.readString(UID_KEY, StandardCharsets.UTF_8);
+            String senhaEnc = Files.readString(UID_PASS, StandardCharsets.UTF_8);
             String senha = decrypt(key, senhaEnc);
 
             return new AdminCredentials(login, senha, dica);
@@ -184,7 +218,7 @@ public class AppConfig {
         public AdminCredentials(String login, String senha, String hint) {
             this.login = login;
             this.senha = senha;
-            this.hint = hint;
+            this.hint  = hint;
         }
 
         public String getLogin() { return login; }
@@ -192,36 +226,77 @@ public class AppConfig {
         public String getHint()  { return hint; }
     }
 
-    // ---------- Configuração do cliente ----------
-    public static void saveClientConfig(String nome, String id, String dataContrato) throws IOException {
+    // =========================================================
+    // ================ CONFIGURAÇÃO DO CLIENTE ================
+    // =========================================================
+
+    /**
+     * Carrega TODAS as propriedades do config.properties.
+     * Se o arquivo não existir, retorna um Properties vazio.
+     */
+    public static Properties loadConfigProperties() throws IOException {
+        Properties props = new Properties();
+
+        if (Files.exists(CONFIG_FILE)) {
+            try (InputStream in = Files.newInputStream(CONFIG_FILE, StandardOpenOption.READ)) {
+                props.load(in);
+            }
+            System.out.println("[DEBUG] Lendo config.properties em: " + CONFIG_FILE);
+        } else {
+            System.out.println("[DEBUG] config.properties ainda não existe em: " + CONFIG_FILE);
+        }
+
+        return props;
+    }
+
+    /**
+     * Salva TODAS as propriedades no config.properties.
+     * Sobrescreve o arquivo inteiro.
+     */
+    public static void saveConfigProperties(Properties props) throws IOException {
         try {
             ensureConfigDir();
-
-            Properties props = new Properties();
-            props.setProperty("cliente.nome", nome);
-            props.setProperty("cliente.id", id);
-            props.setProperty("cliente.data_contrato", dataContrato);
 
             try (OutputStream out = Files.newOutputStream(
                     CONFIG_FILE,
                     StandardOpenOption.CREATE,
                     StandardOpenOption.TRUNCATE_EXISTING
             )) {
-                props.store(out, "Configuração do cliente");
+                props.store(out, "Configurações do FileWatcher");
             }
-            System.out.println("[DEBUG] Arquivo config.properties criado em: " + CONFIG_FILE);
+
+            System.out.println("[DEBUG] Arquivo config.properties salvo em: " + CONFIG_FILE);
         } catch (Exception e) {
             throw new IOException("Erro ao salvar config.properties: " + e.getMessage(), e);
         }
+    }
+
+    /**
+     * Helper específico para atualizar apenas os dados do cliente
+     * sem perder outras propriedades que possam existir.
+     */
+    public static void saveClientConfig(String nome, String id, String dataContrato) throws IOException {
+        Properties props = loadConfigProperties(); // carrega o que já existir
+
+        props.setProperty("cliente.nome", nome);
+        props.setProperty("cliente.id", id);
+        props.setProperty("cliente.data_contrato", dataContrato);
+
+        saveConfigProperties(props);
     }
 
     public static boolean configFileExists() {
         return Files.exists(CONFIG_FILE);
     }
 
+    // Expor o caminho do arquivo para debug / UI
+    public static Path getConfigFilePath() {
+        return CONFIG_FILE;
+    }
+
     // Verifica se as credenciais já foram criadas (primeiro acesso ou não)
     public static boolean keyExists() {
-        // Considera que só existe admin configurado se ambos os arquivos existirem
-        return Files.exists(UID_APP) && Files.exists(UID_KEY);
+        // Considera que só existe admin configurado se tiver login/dica e senha criptografada
+        return Files.exists(UID_APP) && Files.exists(UID_PASS);
     }
 }
