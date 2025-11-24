@@ -297,6 +297,12 @@ public class AppConfig {
     // Verifica se as credenciais já foram criadas (primeiro acesso ou não)
     public static boolean keyExists() {
         // Considera que só existe admin configurado se tiver login/dica e senha criptografada
+        
+        System.out.println("----------------------------------------------------");
+        System.out.println("UID_APP: " + UID_APP + " " + Files.exists(UID_APP));
+        System.out.println("UID_PASS: " + UID_PASS + " " + Files.exists(UID_PASS));
+        System.out.println("----------------------------------------------------");
+        
         return Files.exists(UID_APP) && Files.exists(UID_PASS);
     }
 }

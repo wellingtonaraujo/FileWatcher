@@ -29,9 +29,11 @@ public class FileWatcher {
 
             Path configPath = configDir.resolve("config.properties");
             File configFile = configPath.toFile();   // ✅ agora compila
-
+            
+            System.out.println("----------------------------------------------------");
             System.out.println("Config em: " + configPath);
             System.out.println("Existe? " + configFile.exists());
+            System.out.println("----------------------------------------------------");
 
             // 2) Primeira execução: não existe config.properties
             if (!configFile.exists()) {
