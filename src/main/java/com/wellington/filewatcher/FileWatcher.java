@@ -17,7 +17,7 @@ import java.io.FileWriter;
 
 public class FileWatcher {
 
-    private static final String MONITORED_FOLDER = "C:\\FileWatcher\\Monitored"; // Caminho da pasta a ser monitorada    
+    private static final String MONITORED_FOLDER = ConfigUtil.getMonitoredDir() + ""; // Caminho da pasta a ser monitorada    
 
     public static void main(String[] args) {
 
@@ -31,6 +31,7 @@ public class FileWatcher {
             File configFile = configPath.toFile();   // ✅ agora compila
             
             System.out.println("----------------------------------------------------");
+            System.out.println("Monitored em: " + MONITORED_FOLDER);
             System.out.println("Config em: " + configPath);
             System.out.println("Existe? " + configFile.exists());
             System.out.println("----------------------------------------------------");
