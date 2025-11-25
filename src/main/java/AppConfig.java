@@ -276,19 +276,42 @@ public class AppConfig {
      * Helper específico para atualizar apenas os dados do cliente
      * sem perder outras propriedades que possam existir.
      */
-    public static void saveClientConfig(String nome, String id, String dataContrato, String pastaBackup) throws IOException {
+    public static void saveClientConfig(String nome,
+                                        String id,
+                                        String dataContrato,
+                                        String pastaBackup,
+                                        String pcId,
+                                        String sala) throws IOException {
+
         Properties props = loadConfigProperties(); // carrega o que já existir
 
         props.setProperty("cliente.nome", nome);
         props.setProperty("cliente.id", id);
         props.setProperty("cliente.data_contrato", dataContrato);
-        props.setProperty("cliente.pastaBackup", pastaBackup);
+
+        // backup: usa a nova chave e, se quiser, mantém a antiga por compat
+        String backup = (pastaBackup != null) ? pastaBackup.trim() : "";
+        props.setProperty("cliente.backup_exames", backup);
+        props.setProperty("cliente.pastaBackup", backup); // opcional, se já existir código usando
+
+        // ID automático do computador (se vier preenchido)
+        if (pcId != null && !pcId.trim().isEmpty()) {
+            props.setProperty("cliente.id_computador", pcId.trim());
+        }
+
+        // Sala do computador
+        if (sala != null && !sala.trim().isEmpty()) {
+            props.setProperty("cliente.sala", sala.trim());
+        }
 
         saveConfigProperties(props);
-        
-        //cria a ásta de backup
-        ConfigUtil.createPastaBackup(pastaBackup);
+
+        // cria a pasta de backup (se informado)
+        if (backup != null && !backup.isEmpty()) {
+            ConfigUtil.createPastaBackup(backup);
+        }
     }
+
 
     public static boolean configFileExists() {
         return Files.exists(CONFIG_FILE);

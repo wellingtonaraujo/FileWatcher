@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
+import java.util.UUID;
 
 public class ConfigUtil {
     public static Path getConfigDir() {
@@ -122,6 +127,43 @@ public class ConfigUtil {
         }catch (IOException e){
             e.printStackTrace(); // ou loga com seu logger
             return false;
+        }
+    }
+    
+    public static String gerarIdComputador() {
+        try {
+            String hostname = InetAddress.getLocalHost().getHostName();
+            String os = System.getProperty("os.name", "unknown");
+
+            String mac = "";
+            Enumeration<NetworkInterface> nics = NetworkInterface.getNetworkInterfaces();
+            while (nics.hasMoreElements()) {
+                NetworkInterface ni = nics.nextElement();
+                if (ni.isLoopback() || !ni.isUp()) {
+                    continue;
+                }
+                byte[] macBytes = ni.getHardwareAddress();
+                if (macBytes == null || macBytes.length == 0) {
+                    continue;
+                }
+                StringBuilder sb = new StringBuilder();
+                for (byte b : macBytes) {
+                    sb.append(String.format("%02X", b));
+                }
+                mac = sb.toString();
+                break;
+            }
+
+            String base = hostname + "|" + os + "|" + mac;
+            UUID uuid = UUID.nameUUIDFromBytes(base.getBytes(StandardCharsets.UTF_8));
+            String raw = uuid.toString().replace("-", "").toUpperCase();
+
+            // Ex.: PC-AB12CD34EF (10 caracteres)
+            return "PC-" + raw.substring(0, 10);
+        } catch (Exception e) {
+            // Fallback randômico se algo der errado
+            String random = UUID.randomUUID().toString().replace("-", "").toUpperCase();
+            return "PC-" + random.substring(0, 10);
         }
     }
 }
