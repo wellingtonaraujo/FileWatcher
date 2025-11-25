@@ -11,6 +11,7 @@ import java.nio.file.*;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Properties;
+import com.wellington.filewatcher.ConfigUtil;
 
 public class AppConfig {
 
@@ -275,14 +276,18 @@ public class AppConfig {
      * Helper específico para atualizar apenas os dados do cliente
      * sem perder outras propriedades que possam existir.
      */
-    public static void saveClientConfig(String nome, String id, String dataContrato) throws IOException {
+    public static void saveClientConfig(String nome, String id, String dataContrato, String pastaBackup) throws IOException {
         Properties props = loadConfigProperties(); // carrega o que já existir
 
         props.setProperty("cliente.nome", nome);
         props.setProperty("cliente.id", id);
         props.setProperty("cliente.data_contrato", dataContrato);
+        props.setProperty("cliente.pastaBackup", pastaBackup);
 
         saveConfigProperties(props);
+        
+        //cria a ásta de backup
+        ConfigUtil.createPastaBackup(pastaBackup);
     }
 
     public static boolean configFileExists() {
