@@ -35,6 +35,21 @@ public class ConfigUtil {
         return Paths.get(System.getProperty("user.home"), ".filewatcher", "config");
     }
     
+    public static Path getResourcesDir() {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // Windows → usa APPDATA
+        if (os.contains("win")) {
+            String appData = System.getenv("APPDATA"); // ex: C:\Users\Usuario\AppData\Roaming
+            if (appData != null && !appData.isEmpty()) {
+                return Paths.get(appData, "FileWatcher", "resources");
+            }
+        }
+
+        // Fallback pra Linux/Mac ou se APPDATA não estiver setado
+        return Paths.get(System.getProperty("user.home"), ".filewatcher", "resources");
+    }
+    
     public static Path getMonitoredDir() {
         String os = System.getProperty("os.name").toLowerCase();
         Path dir;

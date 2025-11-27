@@ -63,19 +63,33 @@ public class SystemTrayHelper {
         popup.add(openConfigItem);
 
         // -----------------------------------------
+        // Tipos de Exames (ExamesDialog) – exige login/senha master
+        // -----------------------------------------
+        MenuItem examesItem = new MenuItem("Tipos de Exames");
+        examesItem.addActionListener(e ->
+                SwingUtilities.invokeLater(() -> {
+                    if (!validarAdminLoginESenha()) return;
+
+                    ExamesDialog dialog = new ExamesDialog((Frame) null);
+                    dialog.setLocationRelativeTo(null);
+                    dialog.setVisible(true);
+                })
+        );
+        popup.add(examesItem);
+
+        // -----------------------------------------
         // Trocar senha do usuário master
-        // (login + senha antiga + nova + confirmação)
         // -----------------------------------------
         MenuItem changePasswordItem = new MenuItem("Trocar senha do usuário");
         changePasswordItem.addActionListener(e ->
-                SwingUtilities.invokeLater(SystemTrayHelper::mostrarDialogTrocaSenha)
+                SwingUtilities.invokeLater(() -> mostrarDialogTrocaSenha())
         );
         popup.add(changePasswordItem);
 
         popup.addSeparator();
 
         // -----------------------------------------
-        // Sair – também exige login/senha master
+        // Sair – (aqui você deixou sem exigir login, mantive assim)
         // -----------------------------------------
         MenuItem exitItem = new MenuItem("Sair");
         exitItem.addActionListener(e -> {
