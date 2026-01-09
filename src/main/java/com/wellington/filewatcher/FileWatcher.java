@@ -23,6 +23,7 @@ public class FileWatcher {
             // 1) Diretório de configuração
             Path configDir = ConfigUtil.getConfigDir();
             Files.createDirectories(configDir);
+            Boolean autenticado = false;
 
             Path configPath = configDir.resolve("config.properties");
             File configFile = configPath.toFile();
@@ -42,31 +43,39 @@ public class FileWatcher {
 
                 AdminLoginController auth = new AdminLoginController();
 
-                try {
-                    auth.exigirAutenticacao(); // 🔐 sempre exige login
-                } catch (Exception e) {
+                try {                    
+                    autenticado = auth.exigirAutenticacao(); // 🔐 sempre exige login
+                    if(!autenticado){
+                        System.out.println("Autenticação cancelada pelo usuário");
+                        System.exit(0);
+                    }
+                } catch (Exception e) {                    
                     System.out.println("Autenticação cancelada");
                     System.exit(0);
                 }
+                
+                if(autenticado){
+                    ClienteConfigDialog clienteDialog = new ClienteConfigDialog(null);
 
-                ClienteConfigDialog clienteDialog =
-                        new ClienteConfigDialog(null);
+                    clienteDialog.setVisible(true);
 
-                clienteDialog.setVisible(true);
-
-                if (clienteDialog.isConfirmado()) {
-                    salvarConfigProperties(
-                            configDir,
-                            clienteDialog.getClienteProps()
-                    );
-                    System.out.println("✅ config.properties criado com sucesso");
-                } else {
-                    System.out.println("⚠️ Operação cancelada");
-                    System.exit(0);
-                }
+                    if (clienteDialog.isConfirmado()) {
+                        salvarConfigProperties(
+                                configDir,
+                                clienteDialog.getClienteProps()
+                        );
+                        System.out.println("✅ config.properties criado com sucesso");
+                    } else {
+                        System.out.println("⚠️ Operação cancelada");
+                        System.exit(0);
+                    }
+                }                                
             }
 
-            // 3) Inicializa SystemTray
+            /**
+             * Caso tudo esteja correndo bem inicaliza o FileWatcher no System tray do windows
+             */
+            
             SwingUtilities.invokeLater(() -> {
                 SystemTrayHelper trayHelper = new SystemTrayHelper();
                 trayHelper.initializeTray();
