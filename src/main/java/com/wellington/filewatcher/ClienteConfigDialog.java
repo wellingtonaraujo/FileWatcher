@@ -35,11 +35,22 @@ public class ClienteConfigDialog extends JDialog {
         setLayout(new GridLayout(7, 2, 10, 10));
 
         JLabel lblNome    = new JLabel("Nome do Cliente:");
+        lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         JLabel lblId      = new JLabel("ID (CNPJ ou CPF):");
+        lblId.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         JLabel lblPcId    = new JLabel("ID do Computador:");
+        lblPcId.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         JLabel lblSala    = new JLabel("Sala do Computador:");
+        lblSala.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         JLabel lblData    = new JLabel("Data do Contrato (AAAA-MM-DD):");
+        lblData.setHorizontalAlignment(SwingConstants.RIGHT);
+        
         JLabel lblBackup  = new JLabel("Backup de Exames:");
+        lblBackup.setHorizontalAlignment(SwingConstants.RIGHT);
 
         txtNome = new JTextField();
         txtId   = new JTextField();

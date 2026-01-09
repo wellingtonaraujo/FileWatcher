@@ -11,7 +11,6 @@ import java.nio.file.*;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Properties;
-import com.wellington.filewatcher.ConfigUtil;
 
 public class AppConfig {
 
@@ -333,4 +332,44 @@ public class AppConfig {
         
         return Files.exists(UID_APP) && Files.exists(UID_PASS);
     }
+    
+    public static boolean validateAdmin(String loginDigitado, String senhaDigitada) {
+
+        // Validação básica de entrada
+        if (loginDigitado == null || senhaDigitada == null) {
+            return false;
+        }
+
+        // Se não existe admin configurado, falha direto
+        if (!keyExists()) {
+            return false;
+        }
+
+        try {
+            AdminCredentials creds = loadAdminCredentials();
+            if (creds == null) {
+                return false;
+            }
+
+            // Compara login
+            if (!loginDigitado.trim().equals(creds.getLogin())) {
+                return false;
+            }
+
+            // Compara senha (já descriptografada)
+            return senhaDigitada.equals(creds.getSenha());
+
+        } catch (IOException e) {
+            // Erro de IO nunca deve quebrar o fluxo da UI
+            System.err.println("[ERRO] Não foi possível validar credenciais do admin");
+            System.err.println("[ERRO] " + e.getMessage());
+            return false;
+
+        } finally {
+            // Boa prática: descartar referência da senha
+            senhaDigitada = null;
+        }
+    }
+
+
 }

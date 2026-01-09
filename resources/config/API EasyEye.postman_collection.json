@@ -1,0 +1,2196 @@
+{
+	"info": {
+		"_postman_id": "6a4729bd-72f8-4985-aa74-ccdf65279c3c",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50794898",
+		"_collection_link": "https://easyeye.postman.co/workspace/Team-Workspace~add80540-05dc-4628-8ec5-bd5178b67116/collection/50794898-6a4729bd-72f8-4985-aa74-ccdf65279c3c?action=share&source=collection_link&creator=50794898"
+	},
+	"item": [
+		{
+			"name": "Equipments",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/equipments",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"equipments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:27:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a78fe3-c536-47e4-b68f-4dd057fe1b35\",\n            \"attributes\": {\n                \"integrator_id\": \"a0a5f176-144b-4531-9def-7485dc1c02b3\",\n                \"name\": \"Teste API\",\n                \"ip\": \"192.168.0.2\",\n                \"mac\": \"5e:a0:f5:dd:d3:d9\",\n                \"serial_number\": \"234523453245234523532523523523\",\n                \"active\": true\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f317-7d73-433b-8c93-84c9a874c60f\",\n            \"attributes\": {\n                \"integrator_id\": \"a0a5f176-144b-4531-9def-7485dc1c02b3\",\n                \"name\": \"Teste API 222222\",\n                \"ip\": \"192.168.0.1\",\n                \"mac\": \"5e:a0:f5:dd:d3:db\",\n                \"serial_number\": \"234523453245234523532523523523\",\n                \"active\": true\n            }\n        }\n    ],\n    \"links\": {\n        \"first\": \"http://localhost:8000/api/integrators/v1/equipments?page=1\",\n        \"last\": \"http://localhost:8000/api/integrators/v1/equipments?page=1\",\n        \"prev\": null,\n        \"next\": null\n    },\n    \"meta\": {\n        \"current_page\": 1,\n        \"from\": 1,\n        \"last_page\": 1,\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"« Anterior\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/equipments?page=1\",\n                \"label\": \"1\",\n                \"active\": true\n            },\n            {\n                \"url\": null,\n                \"label\": \"Próximo »\",\n                \"active\": false\n            }\n        ],\n        \"path\": \"http://localhost:8000/api/integrators/v1/equipments\",\n        \"per_page\": 10,\n        \"to\": 2,\n        \"total\": 2\n    }\n}"
+						},
+						{
+							"name": "406",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:30:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"This endpoint only accepts JSON requests.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Teste API\",\r\n    \"ip\": \"192.168.0.2\",\r\n    \"mac\": \"5E:A0:F5:DD:D3:D9\",\r\n    \"serial_number\": \"234523453245234523532523523523\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/equipments",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"equipments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Teste API\",\r\n    \"ip\": \"192.168.0.3\",\r\n    \"mac\": \"5E:A0:F5:DD:D3:D8\",\r\n    \"serial_number\": \"234523453245234523532523523523\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:28:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"type\": \"equipment\",\n        \"id\": \"a0a79b8e-d98f-459b-b5db-b158345f24f8\",\n        \"attributes\": {\n            \"integrator_id\": \"a0a5f176-144b-4531-9def-7485dc1c02b3\",\n            \"name\": \"Teste API\",\n            \"ip\": \"192.168.0.3\",\n            \"mac\": \"5E:A0:F5:DD:D3:D8\",\n            \"serial_number\": \"234523453245234523532523523523\",\n            \"active\": true\n        }\n    }\n}"
+						},
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Teste API\",\r\n    \"ip\": \"192.168.0.2\",\r\n    \"mac\": \"5E:A0:F5:DD:D3:D9\",\r\n    \"serial_number\": \"234523453245234523532523523523\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:30:40 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Dados de validação inválidos.\",\n    \"errors\": {\n        \"ip\": [\n            \"Este endereço IP já está sendo usado por outro equipamento.\"\n        ],\n        \"mac\": [\n            \"Este endereço MAC já está sendo usado por outro equipamento.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/equipments/a0a79b8e-d98f-459b-b5db-b158345f24f8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"equipments",
+								"a0a79b8e-d98f-459b-b5db-b158345f24f8"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments/a0a79b8e-d98f-459b-b5db-b158345f24f8",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments",
+										"a0a79b8e-d98f-459b-b5db-b158345f24f8"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:29:16 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"type\": \"equipment\",\n        \"id\": \"a0a79b8e-d98f-459b-b5db-b158345f24f8\",\n        \"attributes\": {\n            \"integrator_id\": \"a0a5f176-144b-4531-9def-7485dc1c02b3\",\n            \"name\": \"Teste API\",\n            \"ip\": \"192.168.0.3\",\n            \"mac\": \"5e:a0:f5:dd:d3:d8\",\n            \"serial_number\": \"234523453245234523532523523523\",\n            \"active\": true\n        }\n    }\n}"
+						},
+						{
+							"name": "Show",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments/a0a79b8e-d98f-459b-b5db-b158345f24f1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments",
+										"a0a79b8e-d98f-459b-b5db-b158345f24f1"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:31:27 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Equipment not found.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Teste API 222222\",\r\n    \"ip\": \"192.168.0.1\",\r\n    \"mac\": \"5E:A0:F5:DD:D3:DB\",\r\n    \"serial_number\": \"234523453245234523532523523523\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/equipments/a0a5f317-7d73-433b-8c93-84c9a874c60f",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"equipments",
+								"a0a5f317-7d73-433b-8c93-84c9a874c60f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Teste API 222222\",\r\n    \"ip\": \"192.168.0.1\",\r\n    \"mac\": \"5E:A0:F5:DD:D3:DB\",\r\n    \"serial_number\": \"234523453245234523532523523523\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments/a0a79b8e-d98f-459b-b5db-b158345f24f8",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments",
+										"a0a79b8e-d98f-459b-b5db-b158345f24f8"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:32:04 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Dados de validação inválidos.\",\n    \"errors\": {\n        \"ip\": [\n            \"Este endereço IP já está sendo usado por outro equipamento.\"\n        ],\n        \"mac\": [\n            \"Este endereço MAC já está sendo usado por outro equipamento.\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Teste API 222222\",\r\n    \"ip\": \"192.168.0.1\",\r\n    \"mac\": \"5E:A0:F5:DD:D3:DB\",\r\n    \"serial_number\": \"234523453245234523532523523523\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments/a0a5f317-7d73-433b-8c93-84c9a874c60f",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments",
+										"a0a5f317-7d73-433b-8c93-84c9a874c60f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:33:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"type\": \"equipment\",\n        \"id\": \"a0a5f317-7d73-433b-8c93-84c9a874c60f\",\n        \"attributes\": {\n            \"integrator_id\": \"a0a5f176-144b-4531-9def-7485dc1c02b3\",\n            \"name\": \"Teste API 222222\",\n            \"ip\": \"192.168.0.1\",\n            \"mac\": \"5e:a0:f5:dd:d3:db\",\n            \"serial_number\": \"234523453245234523532523523523\",\n            \"active\": true\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/equipments/a0a79b8e-d98f-459b-b5db-b158345f24f8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"equipments",
+								"a0a79b8e-d98f-459b-b5db-b158345f24f8"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments/a09664ac-6cef-485f-b09f-7513d0fe3cfb",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments",
+										"a09664ac-6cef-485f-b09f-7513d0fe3cfb"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:37:30 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Equipment not found.\"\n}"
+						},
+						{
+							"name": "204",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/equipments/a0a79b8e-d98f-459b-b5db-b158345f24f8",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"equipments",
+										"a0a79b8e-d98f-459b-b5db-b158345f24f8"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:38:07 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Patients",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/patients",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"patients"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "PAC3612",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "PAC3612",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:38:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-6c47-4c19-9af2-279cf445fa4f\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC5363\",\n                \"card_number\": null,\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-086f-4093-92d8-b6ddd54a2331\",\n                    \"full_name\": \"Sr. Rodolfo Vila Sales Neto\",\n                    \"nickname\": \"Rodolfo\",\n                    \"birth_date\": \"2003-06-28\",\n                    \"gender\": 1,\n                    \"marital_status\": 5,\n                    \"email\": \"jennifer.reis@example.com\",\n                    \"mother_name\": \"Melissa Isabel Salgado Filho\",\n                    \"father_name\": \"Sr. Wagner Santacruz Neto\",\n                    \"national_registry\": \"64111945481\",\n                    \"state_registry\": \"281653151\",\n                    \"state_registry_agency\": \"PC\",\n                    \"state_registry_initial\": \"MG\",\n                    \"state_registry_date\": \"2003-06-10\",\n                    \"telephone\": \"37953313953\",\n                    \"cellphone\": \"51968672269\",\n                    \"whatsapp\": false,\n                    \"zipcode\": \"92994817\",\n                    \"address\": \"Rua Assunção\",\n                    \"number\": \"529\",\n                    \"complement\": null,\n                    \"district\": \"Vila do Leste\",\n                    \"city\": \"Vila Louise\",\n                    \"state\": \"PB\",\n                    \"country\": \"Brasil\",\n                    \"photo\": \"https://via.placeholder.com/200x200.png/009988?text=people+nam\"\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-c111-49a2-96c8-a73c28042d08\",\n                    \"name\": \"Prevent Senior\",\n                    \"color\": \"#031526\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c419-4bef-9d74-7e5644aabb8a\",\n                    \"name\": \"Morena média\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                    \"name\": \"Azul\"\n                }\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-6dc4-4bdd-9454-2cba081630c8\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC8613\",\n                \"card_number\": null,\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-093a-4b90-87e0-7a8da94c1209\",\n                    \"full_name\": \"Otávio Velasques Marin Jr.\",\n                    \"nickname\": \"Otávio\",\n                    \"birth_date\": \"1967-07-24\",\n                    \"gender\": 1,\n                    \"marital_status\": 1,\n                    \"email\": \"assuncao.gean@example.org\",\n                    \"mother_name\": \"Débora das Neves Barreto Jr.\",\n                    \"father_name\": \"Maurício Fonseca Filho\",\n                    \"national_registry\": \"68928023114\",\n                    \"state_registry\": \"880195207\",\n                    \"state_registry_agency\": \"IFP\",\n                    \"state_registry_initial\": \"AM\",\n                    \"state_registry_date\": \"1998-06-10\",\n                    \"telephone\": \"8142511181\",\n                    \"cellphone\": \"99919623647\",\n                    \"whatsapp\": false,\n                    \"zipcode\": \"67315332\",\n                    \"address\": \"Avenida David\",\n                    \"number\": \"795\",\n                    \"complement\": null,\n                    \"district\": \"Porto do Norte\",\n                    \"city\": \"Vila Emily d'Oeste\",\n                    \"state\": \"MT\",\n                    \"country\": \"Brasil\",\n                    \"photo\": null\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-bef4-4fad-8166-a7702a906a9f\",\n                    \"name\": \"Bradesco Saúde\",\n                    \"color\": \"#cc0000\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c520-4d9c-9259-006d9fe8c8fd\",\n                    \"name\": \"Negra\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                    \"name\": \"Azul\"\n                }\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-8275-4eaa-a39c-40d7b659c785\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC9153\",\n                \"card_number\": \"4711738834376961\",\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-137e-48d7-97d3-0b1bee678105\",\n                    \"full_name\": \"Cristiana Joana Valente Neto\",\n                    \"nickname\": \"Cristiana\",\n                    \"birth_date\": \"1954-12-19\",\n                    \"gender\": 0,\n                    \"marital_status\": 2,\n                    \"email\": \"caroline87@example.net\",\n                    \"mother_name\": \"Samanta Beltrão Neto\",\n                    \"father_name\": \"Gustavo Sanches Sobrinho\",\n                    \"national_registry\": \"46089667234\",\n                    \"state_registry\": \"815444346\",\n                    \"state_registry_agency\": \"PC\",\n                    \"state_registry_initial\": \"RN\",\n                    \"state_registry_date\": \"2000-08-05\",\n                    \"telephone\": \"7536676268\",\n                    \"cellphone\": \"55995858017\",\n                    \"whatsapp\": true,\n                    \"zipcode\": \"91144024\",\n                    \"address\": \"Avenida Sara Paz\",\n                    \"number\": \"4\",\n                    \"complement\": null,\n                    \"district\": \"Santa do Norte\",\n                    \"city\": \"Santa Clara do Leste\",\n                    \"state\": \"TO\",\n                    \"country\": \"Brasil\",\n                    \"photo\": \"https://via.placeholder.com/200x200.png/002233?text=people+molestiae\"\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-c111-49a2-96c8-a73c28042d08\",\n                    \"name\": \"Prevent Senior\",\n                    \"color\": \"#031526\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c32a-44b3-9210-1ed5812ba5b7\",\n                    \"name\": \"Branca\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c763-41f5-b911-82932d301fad\",\n                    \"name\": \"Castanho\"\n                }\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-8480-46fe-abe3-7ee4b93794fb\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC3612\",\n                \"card_number\": \"349040961215817\",\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-1446-42af-94fe-b54c24c19d0b\",\n                    \"full_name\": \"Sr. Théo Benites\",\n                    \"nickname\": \"Théo\",\n                    \"birth_date\": \"1982-10-27\",\n                    \"gender\": 1,\n                    \"marital_status\": 2,\n                    \"email\": \"laiane38@example.com\",\n                    \"mother_name\": \"Dr. Sueli Ornela Prado\",\n                    \"father_name\": \"Sr. Kevin Sepúlveda das Dores Filho\",\n                    \"national_registry\": \"10662253116\",\n                    \"state_registry\": \"116028424\",\n                    \"state_registry_agency\": \"DETRAN\",\n                    \"state_registry_initial\": \"RJ\",\n                    \"state_registry_date\": \"2000-06-05\",\n                    \"telephone\": \"75996020147\",\n                    \"cellphone\": \"35911119585\",\n                    \"whatsapp\": false,\n                    \"zipcode\": \"73428647\",\n                    \"address\": \"Rua Eliane\",\n                    \"number\": \"9\",\n                    \"complement\": null,\n                    \"district\": \"Porto d'Oeste\",\n                    \"city\": \"Santa Valentin\",\n                    \"state\": \"PB\",\n                    \"country\": \"Brasil\",\n                    \"photo\": null\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-c0ac-4713-9731-5a22d5351707\",\n                    \"name\": \"Hapvida\",\n                    \"color\": \"#6fa8dc\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c419-4bef-9d74-7e5644aabb8a\",\n                    \"name\": \"Morena média\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c6f5-4d2a-9df7-9622198f9951\",\n                    \"name\": \"Verde\"\n                }\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-8674-41bc-899e-5ad0e7b5ef6c\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC9124\",\n                \"card_number\": \"6362973206105246\",\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-1516-49f1-92cb-bdbbbf64a51f\",\n                    \"full_name\": \"Marisa Alessandra Verdara\",\n                    \"nickname\": \"Marisa\",\n                    \"birth_date\": \"1947-10-25\",\n                    \"gender\": 0,\n                    \"marital_status\": 1,\n                    \"email\": \"nadia.mares@example.org\",\n                    \"mother_name\": \"Yohanna Luana Toledo Jr.\",\n                    \"father_name\": \"Sr. Maurício Pontes\",\n                    \"national_registry\": \"36740453462\",\n                    \"state_registry\": \"944807291\",\n                    \"state_registry_agency\": \"PC\",\n                    \"state_registry_initial\": \"CE\",\n                    \"state_registry_date\": \"2002-05-17\",\n                    \"telephone\": \"4228359852\",\n                    \"cellphone\": \"95999276791\",\n                    \"whatsapp\": false,\n                    \"zipcode\": \"85201996\",\n                    \"address\": \"Travessa Ramos\",\n                    \"number\": \"3642\",\n                    \"complement\": null,\n                    \"district\": \"São do Leste\",\n                    \"city\": \"Porto Michael\",\n                    \"state\": \"ES\",\n                    \"country\": \"Brasil\",\n                    \"photo\": \"https://via.placeholder.com/200x200.png/000077?text=people+eaque\"\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-bef4-4fad-8166-a7702a906a9f\",\n                    \"name\": \"Bradesco Saúde\",\n                    \"color\": \"#cc0000\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c39c-41cb-9c08-d96e59fcaab7\",\n                    \"name\": \"Morena clara\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                    \"name\": \"Azul\"\n                }\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-884f-4c7a-b0fd-6227b006d754\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC5992\",\n                \"card_number\": null,\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-1649-49db-916c-b8bd67162239\",\n                    \"full_name\": \"Dr. Wesley Oliveira Roque Sobrinho\",\n                    \"nickname\": \"Wesley\",\n                    \"birth_date\": \"1948-01-07\",\n                    \"gender\": 1,\n                    \"marital_status\": 1,\n                    \"email\": \"branco.fabiana@example.net\",\n                    \"mother_name\": \"Srta. Tessália Lia Delatorre\",\n                    \"father_name\": \"Dr. Edson Abreu\",\n                    \"national_registry\": \"88612730767\",\n                    \"state_registry\": \"645155608\",\n                    \"state_registry_agency\": \"SSP\",\n                    \"state_registry_initial\": \"MT\",\n                    \"state_registry_date\": \"2005-12-20\",\n                    \"telephone\": \"31984642223\",\n                    \"cellphone\": \"93980636695\",\n                    \"whatsapp\": true,\n                    \"zipcode\": \"37717184\",\n                    \"address\": \"Travessa Arthur Bezerra\",\n                    \"number\": \"6\",\n                    \"complement\": null,\n                    \"district\": \"Vila do Norte\",\n                    \"city\": \"Escobar do Sul\",\n                    \"state\": \"AM\",\n                    \"country\": \"Brasil\",\n                    \"photo\": null\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-c111-49a2-96c8-a73c28042d08\",\n                    \"name\": \"Prevent Senior\",\n                    \"color\": \"#031526\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c39c-41cb-9c08-d96e59fcaab7\",\n                    \"name\": \"Morena clara\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                    \"name\": \"Azul\"\n                }\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-9d4a-4b80-bff1-55c7d9eecb6a\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC7171\",\n                \"card_number\": \"4354628780670693\",\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-1f58-4665-a339-6990f3395762\",\n                    \"full_name\": \"Dr. Antonella Estrada da Cruz\",\n                    \"nickname\": \"Antonella\",\n                    \"birth_date\": \"1995-05-27\",\n                    \"gender\": 0,\n                    \"marital_status\": 5,\n                    \"email\": \"ivega@example.org\",\n                    \"mother_name\": \"Lavínia Vale\",\n                    \"father_name\": \"Sr. Gilberto Soares Sales Neto\",\n                    \"national_registry\": \"83189166897\",\n                    \"state_registry\": \"933110065\",\n                    \"state_registry_agency\": \"DETRAN\",\n                    \"state_registry_initial\": \"RO\",\n                    \"state_registry_date\": \"1996-06-04\",\n                    \"telephone\": \"65906532420\",\n                    \"cellphone\": \"22979130452\",\n                    \"whatsapp\": true,\n                    \"zipcode\": \"32404195\",\n                    \"address\": \"Rua David de Freitas\",\n                    \"number\": \"69\",\n                    \"complement\": null,\n                    \"district\": \"Porto do Norte\",\n                    \"city\": \"Diego do Leste\",\n                    \"state\": \"BA\",\n                    \"country\": \"Brasil\",\n                    \"photo\": null\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-bf5d-4dae-8a42-7ef7b96dea36\",\n                    \"name\": \"Golden Cross\",\n                    \"color\": \"#f1c232\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c419-4bef-9d74-7e5644aabb8a\",\n                    \"name\": \"Morena média\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c763-41f5-b911-82932d301fad\",\n                    \"name\": \"Castanho\"\n                }\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-9f9c-4583-bae7-42465141ad97\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC2982\",\n                \"card_number\": \"4786778777892517\",\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-206e-4978-bfc4-8081e66b15b0\",\n                    \"full_name\": \"Dr. Estêvão Salas Alves\",\n                    \"nickname\": \"Estêvão\",\n                    \"birth_date\": \"1977-01-07\",\n                    \"gender\": 1,\n                    \"marital_status\": 3,\n                    \"email\": \"isis.galindo@example.org\",\n                    \"mother_name\": \"Sra. Aparecida Ferreira Leon Jr.\",\n                    \"father_name\": \"Alessandro das Neves de Aguiar Filho\",\n                    \"national_registry\": \"23379671827\",\n                    \"state_registry\": \"912304430\",\n                    \"state_registry_agency\": \"PC\",\n                    \"state_registry_initial\": \"AC\",\n                    \"state_registry_date\": \"2004-01-02\",\n                    \"telephone\": \"1623961964\",\n                    \"cellphone\": \"83970616248\",\n                    \"whatsapp\": true,\n                    \"zipcode\": \"32949901\",\n                    \"address\": \"Avenida Davi Ramos\",\n                    \"number\": \"87303\",\n                    \"complement\": \"Apto 9\",\n                    \"district\": \"Vila do Leste\",\n                    \"city\": \"Emílio do Sul\",\n                    \"state\": \"MA\",\n                    \"country\": \"Brasil\",\n                    \"photo\": null\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-c03a-4755-877b-50c83d0c2f51\",\n                    \"name\": \"Porto Seguro Saúde\",\n                    \"color\": \"#3d85c6\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c32a-44b3-9210-1ed5812ba5b7\",\n                    \"name\": \"Branca\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c6f5-4d2a-9df7-9622198f9951\",\n                    \"name\": \"Verde\"\n                }\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-a485-4fd9-9350-4f940a7c5d4a\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC2554\",\n                \"card_number\": null,\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-233c-4320-8340-459a331b81ed\",\n                    \"full_name\": \"Dr. Gabriel Fabrício da Rosa\",\n                    \"nickname\": \"Gabriel\",\n                    \"birth_date\": \"1951-01-09\",\n                    \"gender\": 1,\n                    \"marital_status\": 2,\n                    \"email\": \"yasmin.brito@example.net\",\n                    \"mother_name\": \"Srta. Elaine Carla Ferminiano\",\n                    \"father_name\": \"Dr. Francisco Prado Neto\",\n                    \"national_registry\": \"38720539304\",\n                    \"state_registry\": \"237911426\",\n                    \"state_registry_agency\": \"IFP\",\n                    \"state_registry_initial\": \"MS\",\n                    \"state_registry_date\": \"1996-09-30\",\n                    \"telephone\": \"4538661364\",\n                    \"cellphone\": \"66994666677\",\n                    \"whatsapp\": true,\n                    \"zipcode\": \"76753422\",\n                    \"address\": \"Largo Matias\",\n                    \"number\": \"4\",\n                    \"complement\": null,\n                    \"district\": \"São do Leste\",\n                    \"city\": \"Santa Mateus\",\n                    \"state\": \"PR\",\n                    \"country\": \"Brasil\",\n                    \"photo\": null\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-be8e-49a0-9e61-2a2e1fe7c16e\",\n                    \"name\": \"SulAmérica Saúde\",\n                    \"color\": \"#0a365e\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c32a-44b3-9210-1ed5812ba5b7\",\n                    \"name\": \"Branca\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c6f5-4d2a-9df7-9622198f9951\",\n                    \"name\": \"Verde\"\n                }\n            }\n        },\n        {\n            \"type\": \"equipment\",\n            \"id\": \"a0a5f176-aa54-454b-8b9d-8b5d7217e849\",\n            \"attributes\": {\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"code\": \"PAC8418\",\n                \"card_number\": null,\n                \"active\": true,\n                \"person\": {\n                    \"id\": \"a0a5f171-2589-4a8e-af21-50c1a3b0dd45\",\n                    \"full_name\": \"Constância da Cruz Velasques Filho\",\n                    \"nickname\": \"Constância\",\n                    \"birth_date\": \"1977-10-28\",\n                    \"gender\": 0,\n                    \"marital_status\": 4,\n                    \"email\": \"joana.tamoio@example.com\",\n                    \"mother_name\": \"Dr. Allison Rayane Quintana\",\n                    \"father_name\": \"Marcelo Serrano Carmona\",\n                    \"national_registry\": \"71449955886\",\n                    \"state_registry\": \"388251549\",\n                    \"state_registry_agency\": \"PC\",\n                    \"state_registry_initial\": \"AL\",\n                    \"state_registry_date\": \"1999-04-11\",\n                    \"telephone\": \"81999578108\",\n                    \"cellphone\": \"13960228522\",\n                    \"whatsapp\": false,\n                    \"zipcode\": \"58863209\",\n                    \"address\": \"Rua Eric de Souza\",\n                    \"number\": \"9053\",\n                    \"complement\": null,\n                    \"district\": \"Santa do Sul\",\n                    \"city\": \"Santa Lia d'Oeste\",\n                    \"state\": \"PA\",\n                    \"country\": \"Brasil\",\n                    \"photo\": null\n                },\n                \"covenant\": {\n                    \"id\": \"a0a5f16f-c03a-4755-877b-50c83d0c2f51\",\n                    \"name\": \"Porto Seguro Saúde\",\n                    \"color\": \"#3d85c6\",\n                    \"table\": false\n                },\n                \"skinType\": {\n                    \"id\": \"a0a5f16f-c4a2-4075-8a02-1bccf7a3c1f2\",\n                    \"name\": \"Morena escura\"\n                },\n                \"irisType\": {\n                    \"id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                    \"name\": \"Azul\"\n                }\n            }\n        }\n    ],\n    \"links\": {\n        \"first\": \"http://localhost:8000/api/integrators/v1/patients?page=1\",\n        \"last\": \"http://localhost:8000/api/integrators/v1/patients?page=37\",\n        \"prev\": null,\n        \"next\": \"http://localhost:8000/api/integrators/v1/patients?page=2\"\n    },\n    \"meta\": {\n        \"current_page\": 1,\n        \"from\": 1,\n        \"last_page\": 37,\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"« Anterior\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=1\",\n                \"label\": \"1\",\n                \"active\": true\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=2\",\n                \"label\": \"2\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=3\",\n                \"label\": \"3\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=4\",\n                \"label\": \"4\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=5\",\n                \"label\": \"5\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=6\",\n                \"label\": \"6\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=7\",\n                \"label\": \"7\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=8\",\n                \"label\": \"8\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=9\",\n                \"label\": \"9\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=10\",\n                \"label\": \"10\",\n                \"active\": false\n            },\n            {\n                \"url\": null,\n                \"label\": \"...\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=36\",\n                \"label\": \"36\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=37\",\n                \"label\": \"37\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients?page=2\",\n                \"label\": \"Próximo »\",\n                \"active\": false\n            }\n        ],\n        \"path\": \"http://localhost:8000/api/integrators/v1/patients\",\n        \"per_page\": 10,\n        \"to\": 10,\n        \"total\": 367\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"patients",
+								"{{patient_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"{{patient_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:39:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"type\": \"equipment\",\n        \"id\": \"a0a5f176-6c47-4c19-9af2-279cf445fa4f\",\n        \"attributes\": {\n            \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n            \"code\": \"PAC5363\",\n            \"card_number\": null,\n            \"active\": true,\n            \"person\": {\n                \"id\": \"a0a5f171-086f-4093-92d8-b6ddd54a2331\",\n                \"full_name\": \"Sr. Rodolfo Vila Sales Neto\",\n                \"nickname\": \"Rodolfo\",\n                \"birth_date\": \"2003-06-28\",\n                \"gender\": 1,\n                \"marital_status\": 5,\n                \"email\": \"jennifer.reis@example.com\",\n                \"mother_name\": \"Melissa Isabel Salgado Filho\",\n                \"father_name\": \"Sr. Wagner Santacruz Neto\",\n                \"national_registry\": \"64111945481\",\n                \"state_registry\": \"281653151\",\n                \"state_registry_agency\": \"PC\",\n                \"state_registry_initial\": \"MG\",\n                \"state_registry_date\": \"2003-06-10\",\n                \"telephone\": \"37953313953\",\n                \"cellphone\": \"51968672269\",\n                \"whatsapp\": false,\n                \"zipcode\": \"92994817\",\n                \"address\": \"Rua Assunção\",\n                \"number\": \"529\",\n                \"complement\": null,\n                \"district\": \"Vila do Leste\",\n                \"city\": \"Vila Louise\",\n                \"state\": \"PB\",\n                \"country\": \"Brasil\",\n                \"photo\": \"https://via.placeholder.com/200x200.png/009988?text=people+nam\"\n            },\n            \"covenant\": {\n                \"id\": \"a0a5f16f-c111-49a2-96c8-a73c28042d08\",\n                \"name\": \"Prevent Senior\",\n                \"color\": \"#031526\",\n                \"table\": false\n            },\n            \"skinType\": {\n                \"id\": \"a0a5f16f-c419-4bef-9d74-7e5644aabb8a\",\n                \"name\": \"Morena média\"\n            },\n            \"irisType\": {\n                \"id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                \"name\": \"Azul\"\n            }\n        }\n    }\n}"
+						},
+						{
+							"name": "500",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/3333",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"3333"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:40:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"An error occurred.\"\n}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/a0a5f176-6c47-4c19-9af2-279cf445fa41",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"a0a5f176-6c47-4c19-9af2-279cf445fa41"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:42:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Patient not found.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PatientExams",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"patients",
+								"{{patient_id}}",
+								"exams"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"{{patient_id}}",
+										"exams"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:43:50 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"type\": \"patient_exams\",\n            \"id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n            \"attributes\": {\n                \"code\": \"PAC5363\",\n                \"archive\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams/1766406814_07033619-f5e0-432b-bf28-43daf98f3bb2.png\",\n                \"archive_url\": \"https://s3.wasabisys.com/desenv/a0a5f16f-7b59-4943-b09b-b36dc8bddf1f/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams/1766406814_07033619-f5e0-432b-bf28-43daf98f3bb2.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=7OXPNILBU92ALW3YA159%2F20251222%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251222T154350Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=a0a0d214149bb14ac2b1129c3632f9a945f13e13f9329bfc425bbda548b0e88d\",\n                \"name\": \"Medical Group\",\n                \"active\": true,\n                \"created_at\": \"2025-12-21T19:36:46.000000Z\",\n                \"updated_at\": \"2025-12-21T19:36:46.000000Z\"\n            },\n            \"relationships\": {\n                \"patient\": {\n                    \"id\": \"a0a5f176-6c47-4c19-9af2-279cf445fa4f\",\n                    \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                    \"person_id\": \"a0a5f171-086f-4093-92d8-b6ddd54a2331\",\n                    \"covenant_id\": \"a0a5f16f-c111-49a2-96c8-a73c28042d08\",\n                    \"skin_id\": \"a0a5f16f-c419-4bef-9d74-7e5644aabb8a\",\n                    \"iris_id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                    \"code\": \"PAC5363\",\n                    \"card_number\": null,\n                    \"active\": true,\n                    \"created_at\": \"2025-12-21T19:36:51.000000Z\",\n                    \"updated_at\": \"2025-12-21T19:36:51.000000Z\"\n                },\n                \"doctor\": [],\n                \"schedule\": []\n            }\n        },\n        {\n            \"type\": \"patient_exams\",\n            \"id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n            \"attributes\": {\n                \"code\": \"PAC5363\",\n                \"archive\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams/1766407952_639bc950-690d-42e4-8f83-d793df53bfc0.png\",\n                \"archive_url\": \"https://s3.wasabisys.com/desenv/a0a5f16f-7b59-4943-b09b-b36dc8bddf1f/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams/1766407952_639bc950-690d-42e4-8f83-d793df53bfc0.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=7OXPNILBU92ALW3YA159%2F20251222%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251222T154350Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=19e6cbdf26be317f37d18a40c9ceccdf206ce2388b47d1bf1ef829a4b79552bc\",\n                \"name\": \"Medical Group\",\n                \"active\": true,\n                \"created_at\": \"2025-12-21T19:36:46.000000Z\",\n                \"updated_at\": \"2025-12-21T19:36:46.000000Z\"\n            },\n            \"relationships\": {\n                \"patient\": {\n                    \"id\": \"a0a5f176-6c47-4c19-9af2-279cf445fa4f\",\n                    \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                    \"person_id\": \"a0a5f171-086f-4093-92d8-b6ddd54a2331\",\n                    \"covenant_id\": \"a0a5f16f-c111-49a2-96c8-a73c28042d08\",\n                    \"skin_id\": \"a0a5f16f-c419-4bef-9d74-7e5644aabb8a\",\n                    \"iris_id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                    \"code\": \"PAC5363\",\n                    \"card_number\": null,\n                    \"active\": true,\n                    \"created_at\": \"2025-12-21T19:36:51.000000Z\",\n                    \"updated_at\": \"2025-12-21T19:36:51.000000Z\"\n                },\n                \"doctor\": [],\n                \"schedule\": []\n            }\n        }\n    ],\n    \"links\": {\n        \"first\": \"http://localhost:8000/api/integrators/v1/patients/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams?page=1\",\n        \"last\": \"http://localhost:8000/api/integrators/v1/patients/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams?page=1\",\n        \"prev\": null,\n        \"next\": null\n    },\n    \"meta\": {\n        \"current_page\": 1,\n        \"from\": 1,\n        \"last_page\": 1,\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"« Anterior\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/integrators/v1/patients/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams?page=1\",\n                \"label\": \"1\",\n                \"active\": true\n            },\n            {\n                \"url\": null,\n                \"label\": \"Próximo »\",\n                \"active\": false\n            }\n        ],\n        \"path\": \"http://localhost:8000/api/integrators/v1/patients/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams\",\n        \"per_page\": 10,\n        \"to\": 2,\n        \"total\": 2\n    }\n}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/a0a5f176-6c47-4c19-9af2-279cf445fa42/exams",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"a0a5f176-6c47-4c19-9af2-279cf445fa42",
+										"exams"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:46:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Patient not found.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "archive",
+									"type": "file",
+									"src": "/C:/Users/higor/OneDrive/Pictures/Screenshots/Captura de tela 2025-06-17 232044.png"
+								},
+								{
+									"key": "name",
+									"value": "dsfasfdasfas",
+									"type": "text"
+								},
+								{
+									"key": "doctor_id",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "schedule_id",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"patients",
+								"{{patient_id}}",
+								"exams"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "archive",
+											"type": "file",
+											"src": "/C:/Users/higor/OneDrive/Pictures/Screenshots/Captura de tela 2025-06-20 094252.png"
+										},
+										{
+											"key": "name",
+											"value": "dsfasfdasfas",
+											"type": "text"
+										},
+										{
+											"key": "doctor_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "schedule_id",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"{{patient_id}}",
+										"exams"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:49:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"type\": \"patient_exams\",\n        \"id\": \"a0a7a308-ab56-4e3c-94be-95aef0bca593\",\n        \"attributes\": {\n            \"code\": \"EXAM-67D1125A4C72\",\n            \"archive\": \"https://s3.wasabisys.com/desenv/a0a5f16f-7b59-4943-b09b-b36dc8bddf1f/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams/1766418550_c63ba7f9-d607-40f4-b90b-d48c47ca882a.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=7OXPNILBU92ALW3YA159%2F20251222%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251222T154912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=4b0e0f0a63d320cfb3ca5b0aa9c33af327ac5db9bcee4ad6effd78568e0bf567\",\n            \"name\": \"dsfasfdasfas\",\n            \"active\": true,\n            \"created_at\": \"2025-12-22T15:49:12.000000Z\",\n            \"updated_at\": \"2025-12-22T15:49:12.000000Z\"\n        },\n        \"relationships\": {\n            \"patient\": {\n                \"id\": \"a0a5f176-6c47-4c19-9af2-279cf445fa4f\",\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"person_id\": \"a0a5f171-086f-4093-92d8-b6ddd54a2331\",\n                \"covenant_id\": \"a0a5f16f-c111-49a2-96c8-a73c28042d08\",\n                \"skin_id\": \"a0a5f16f-c419-4bef-9d74-7e5644aabb8a\",\n                \"iris_id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                \"code\": \"PAC5363\",\n                \"card_number\": null,\n                \"active\": true,\n                \"created_at\": \"2025-12-21T19:36:51.000000Z\",\n                \"updated_at\": \"2025-12-21T19:36:51.000000Z\"\n            },\n            \"doctor\": [],\n            \"schedule\": []\n        }\n    }\n}"
+						},
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "archive",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "name",
+											"value": "dsfasfdasfas",
+											"type": "text"
+										},
+										{
+											"key": "doctor_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "schedule_id",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"{{patient_id}}",
+										"exams"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:49:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Dados de validação inválidos.\",\n    \"errors\": {\n        \"archive\": [\n            \"É obrigatória a indicação de um valor para o campo archive.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams/{{exam_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"patients",
+								"{{patient_id}}",
+								"exams",
+								"{{exam_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams/{{exam_id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"{{patient_id}}",
+										"exams",
+										"{{exam_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:51:17 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"type\": \"patient_exams\",\n        \"id\": \"a0a7a35d-fddf-47e3-9700-c44c4578113d\",\n        \"attributes\": {\n            \"code\": \"EXAM-D88E6038C3DF\",\n            \"archive\": \"https://s3.wasabisys.com/desenv/a0a5f16f-7b59-4943-b09b-b36dc8bddf1f/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams/1766418607_a518e9e1-c25c-4a91-ba74-686faa330030.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=7OXPNILBU92ALW3YA159%2F20251222%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251222T155117Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=8343f71ee6cbfc3bc0eb18bcdb0f3cd8bff28c99388b7b5fede7ed0764e40d70\",\n            \"name\": \"dsfasfdasfas\",\n            \"active\": true,\n            \"created_at\": \"2025-12-22T15:50:08.000000Z\",\n            \"updated_at\": \"2025-12-22T15:50:08.000000Z\"\n        },\n        \"relationships\": {\n            \"patient\": {\n                \"id\": \"a0a5f176-6c47-4c19-9af2-279cf445fa4f\",\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"person_id\": \"a0a5f171-086f-4093-92d8-b6ddd54a2331\",\n                \"covenant_id\": \"a0a5f16f-c111-49a2-96c8-a73c28042d08\",\n                \"skin_id\": \"a0a5f16f-c419-4bef-9d74-7e5644aabb8a\",\n                \"iris_id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                \"code\": \"PAC5363\",\n                \"card_number\": null,\n                \"active\": true,\n                \"created_at\": \"2025-12-21T19:36:51.000000Z\",\n                \"updated_at\": \"2025-12-21T19:36:51.000000Z\"\n            },\n            \"doctor\": [],\n            \"schedule\": []\n        }\n    }\n}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams/a0a7a35d-fddf-47e3-9700-c44c45781131",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"{{patient_id}}",
+										"exams",
+										"a0a7a35d-fddf-47e3-9700-c44c45781131"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:51:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Exam not found.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "archive",
+									"type": "file",
+									"src": "/C:/Users/higor/OneDrive/Pictures/Screenshots/Captura de tela 2025-07-07 223024.png"
+								},
+								{
+									"key": "name",
+									"value": "dsfasdfasdfasdfsaf",
+									"type": "text"
+								},
+								{
+									"key": "doctor_id",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "schedule_id",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "active",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams/{{exam_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"patients",
+								"{{patient_id}}",
+								"exams",
+								"{{exam_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "multipart/form-data",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "archive",
+											"type": "file",
+											"src": "/C:/Users/higor/OneDrive/Pictures/Screenshots/Captura de tela 2025-06-29 113655.png"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "doctor_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "schedule_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "active",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams/{{exam_id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"{{patient_id}}",
+										"exams",
+										"{{exam_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 16:53:04 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"type\": \"patient_exams\",\n        \"id\": \"a0a7a35d-fddf-47e3-9700-c44c4578113d\",\n        \"attributes\": {\n            \"code\": \"EXAM-2F5D5DA6CB4C\",\n            \"archive\": \"https://s3.wasabisys.com/desenv/a0a5f16f-7b59-4943-b09b-b36dc8bddf1f/a0a5f176-6c47-4c19-9af2-279cf445fa4f/exams/1766422383_0c742dc0-37da-4e0c-ba7f-2f12f555f749.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=7OXPNILBU92ALW3YA159%2F20251222%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251222T165304Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=e950b03f9e668a00c8b49361ffc4d417ff65c4b887d76da7a346ec9315c31228\",\n            \"name\": null,\n            \"active\": true,\n            \"created_at\": \"2025-12-22T15:50:08.000000Z\",\n            \"updated_at\": \"2025-12-22T16:53:04.000000Z\"\n        },\n        \"relationships\": {\n            \"patient\": {\n                \"id\": \"a0a5f176-6c47-4c19-9af2-279cf445fa4f\",\n                \"entity_id\": \"a0a5f16f-7b59-4943-b09b-b36dc8bddf1f\",\n                \"person_id\": \"a0a5f171-086f-4093-92d8-b6ddd54a2331\",\n                \"covenant_id\": \"a0a5f16f-c111-49a2-96c8-a73c28042d08\",\n                \"skin_id\": \"a0a5f16f-c419-4bef-9d74-7e5644aabb8a\",\n                \"iris_id\": \"a0a5f16f-c65b-4f78-a3b8-956daba555bd\",\n                \"code\": \"PAC5363\",\n                \"card_number\": null,\n                \"active\": true,\n                \"created_at\": \"2025-12-21T19:36:51.000000Z\",\n                \"updated_at\": \"2025-12-21T19:36:51.000000Z\"\n            },\n            \"doctor\": [],\n            \"schedule\": []\n        }\n    }\n}"
+						},
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "multipart/form-data",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "archive",
+											"type": "file",
+											"src": "/C:/Users/higor/OneDrive/Pictures/Screenshots/Captura de tela 2025-06-21 111352.png"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "doctor_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "schedule_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "active",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams/{{exam_id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"{{patient_id}}",
+										"exams",
+										"{{exam_id}}"
+									],
+									"query": [
+										{
+											"key": "_method",
+											"value": "put",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 16:03:31 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Dados de validação inválidos.\",\n    \"errors\": {\n        \"archive\": [\n            \"É obrigatória a indicação de um valor para o campo archive.\"\n        ],\n        \"active\": [\n            \"É obrigatória a indicação de um valor para o campo active.\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "500",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "multipart/form-data",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "archive",
+											"type": "file",
+											"src": "/C:/Users/higor/OneDrive/Pictures/Screenshots/Captura de tela 2025-06-29 113655.png"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "doctor_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "schedule_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "active",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams/{{exam_id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"patients",
+										"{{patient_id}}",
+										"exams",
+										"{{exam_id}}"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 16:33:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"An error occurred.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/integrators/v1/patients/{{patient_id}}/exams/a0a6ada8-12d9-4a55-a0ab-5cd1640755c0",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"integrators",
+								"v1",
+								"patients",
+								"{{patient_id}}",
+								"exams",
+								"a0a6ada8-12d9-4a55-a0ab-5cd1640755c0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": \"a27aed54174f7505771a264f9ed2d358d7bc2226253debe3e6bb392b51addd66\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/integrators/auth",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"integrators",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

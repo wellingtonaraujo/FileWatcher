@@ -2,73 +2,81 @@ package com.wellington.filewatcher;
 
 import java.util.Properties;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.*;
 import static java.nio.file.StandardWatchEventKinds.*;
+
 import javax.swing.SwingUtilities;
 
-import com.wellington.filewatcher.AppConfig;
-import com.wellington.filewatcher.ClienteConfigDialog;
-import com.wellington.filewatcher.AdminLoginDialog;
-import com.wellington.filewatcher.ConfigUtil;
+import com.wellington.filewatcher.controller.AdminLoginController;
 
 import java.io.File;
 import java.io.FileWriter;
 
 public class FileWatcher {
 
-    private static final String MONITORED_FOLDER = ConfigUtil.getMonitoredDir() + ""; // Caminho da pasta a ser monitorada    
+    private static final String MONITORED_FOLDER =
+            ConfigUtil.getMonitoredDir() + "";
 
     public static void main(String[] args) {
 
         try {
-            // 1) Descobrir diretório de configuração do usuário final
+            // 1) Diretório de configuração
             Path configDir = ConfigUtil.getConfigDir();
-            
             Files.createDirectories(configDir);
 
             Path configPath = configDir.resolve("config.properties");
-            File configFile = configPath.toFile();   // ✅ agora compila
-            
+            File configFile = configPath.toFile();
+
             System.out.println("----------------------------------------------------");
-            System.out.println("Monitored em: " + MONITORED_FOLDER);
-            System.out.println("Config em: " + configPath);
-            System.out.println("Existe? " + configFile.exists());
+            System.out.println("Monitorando a pasta: " + MONITORED_FOLDER);
+            System.out.println("Caminho do Config: " + configPath);
+            System.out.println("Config existe? " + configFile.exists());
             System.out.println("----------------------------------------------------");
 
-            // 2) Primeira execução: não existe config.properties
-            if (!configFile.exists()) {
-                System.out.println("Primeira execução detectada - iniciando a configuração...");
+            boolean firstAccess = !AppConfig.keyExists();
+            System.out.println("Primeiro acesso: " + firstAccess);
 
-                // 2.1) Autenticação do administrador (cria usuário master)
-                AdminLoginDialog loginDialog = new AdminLoginDialog(null);
-                loginDialog.setVisible(true);
+            // 2) Primeiro acesso → exige autenticação + configura cliente
+            if (firstAccess) {
+                System.out.println("Primeira execução detectada");
 
-                if (!loginDialog.isAutenticado()) {
-                    System.out.println("❌ Autenticação falhou. Encerrando.");
+                AdminLoginController auth = new AdminLoginController();
+
+                try {
+                    auth.exigirAutenticacao(); // 🔐 sempre exige login
+                } catch (Exception e) {
+                    System.out.println("Autenticação cancelada");
                     System.exit(0);
                 }
 
-                // 2.2) Formulário de dados do cliente (gera as propriedades)
-                ClienteConfigDialog clienteDialog = new ClienteConfigDialog(null);
+                ClienteConfigDialog clienteDialog =
+                        new ClienteConfigDialog(null);
+
                 clienteDialog.setVisible(true);
 
                 if (clienteDialog.isConfirmado()) {
-                    salvarConfigProperties(configDir, clienteDialog.getClienteProps());
-                    System.out.println("✅ Arquivo config.properties criado com sucesso em: " + configPath);
+                    salvarConfigProperties(
+                            configDir,
+                            clienteDialog.getClienteProps()
+                    );
+                    System.out.println("✅ config.properties criado com sucesso");
                 } else {
-                    System.out.println("⚠️ Operação cancelada pelo administrador.");
+                    System.out.println("⚠️ Operação cancelada");
                     System.exit(0);
                 }
             }
 
-            // 3) Daqui pra frente, o sistema já tem config.properties garantido
-            //    Aqui você pode carregar AppConfig, iniciar SystemTrayHelper, monitor etc.
+            // 3) Inicializa SystemTray
+            SwingUtilities.invokeLater(() -> {
+                SystemTrayHelper trayHelper = new SystemTrayHelper();
+                trayHelper.initializeTray();
+            });
 
-            SystemTrayHelper.initializeTray();
-
+            // 4) WatchService
             Path path = Paths.get(MONITORED_FOLDER);
-            WatchService watchService = FileSystems.getDefault().newWatchService();
+            WatchService watchService =
+                    FileSystems.getDefault().newWatchService();
+
             path.register(watchService, ENTRY_CREATE);
 
             System.out.println("👀 Monitorando a pasta: " + MONITORED_FOLDER);
@@ -77,21 +85,21 @@ public class FileWatcher {
                 WatchKey key = watchService.take();
 
                 for (WatchEvent<?> event : key.pollEvents()) {
-                    WatchEvent.Kind<?> kind = event.kind();
+                    if (event.kind() == ENTRY_CREATE) {
+                        Path newFile =
+                                path.resolve((Path) event.context());
 
-                    if (kind == ENTRY_CREATE) {
-                        Path newFile = path.resolve((Path) event.context());
-                        System.out.println("📂 Novo arquivo detectado: " + newFile);
+                        System.out.println("📂 Novo arquivo: " + newFile);
 
                         SwingUtilities.invokeLater(() -> {
-                            FileInfoDialog dialog = new FileInfoDialog(newFile.toFile());
+                            FileInfoDialog dialog =
+                                    new FileInfoDialog(newFile.toFile());
                             dialog.setVisible(true);
                         });
                     }
                 }
 
-                boolean valid = key.reset();
-                if (!valid) {
+                if (!key.reset()) {
                     break;
                 }
             }
@@ -101,11 +109,17 @@ public class FileWatcher {
         }
     }
 
-            
-    private static void salvarConfigProperties(Path configDir, Properties props) throws IOException {
+    private static void salvarConfigProperties(
+            Path configDir,
+            Properties props
+    ) throws IOException {
+
         Files.createDirectories(configDir);
 
-        File file = configDir.resolve("config.properties").toFile();  // ✅ converte Path → File
+        File file = configDir
+                .resolve("config.properties")
+                .toFile();
+
         try (FileWriter writer = new FileWriter(file)) {
             props.store(writer, "Configurações do cliente");
         }
