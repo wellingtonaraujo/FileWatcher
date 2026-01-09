@@ -4,6 +4,7 @@ import com.wellington.filewatcher.controller.AdminLoginController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class SystemTrayHelper {
 
@@ -15,17 +16,43 @@ public class SystemTrayHelper {
 
         PopupMenu menu = new PopupMenu();
 
-        MenuItem configItem = new MenuItem("Configurações");
-        MenuItem exitItem = new MenuItem("Sair");
+        // -----------------------------------------
+        // Menu Pasta Monitorada (antes de Configurações)
+        // -----------------------------------------
+        MenuItem monitoredFolder = new MenuItem("Pasta padrão");
+        monitoredFolder.addActionListener(e -> openMonitoredFolder());
+        menu.add(monitoredFolder);
+        menu.addSeparator();
+
+        // -----------------------------------------
+        // Menu Configurações
+        // -----------------------------------------
+        MenuItem configItem = new MenuItem("Configurações");        
 
         configItem.addActionListener(e -> abrirConfiguracoes());
-        exitItem.addActionListener(e -> System.exit(0));
-
         menu.add(configItem);
+        
+        // -----------------------------------------
+        // Menu trocar senha
+        // -----------------------------------------
+        MenuItem trocarSenha = new MenuItem("Trocar Senha");        
+        trocarSenha.addActionListener(e -> trocarSenha());
+        
+        menu.add(trocarSenha);
         menu.addSeparator();
+        
+        
+        // -----------------------------------------
+        // Menu Sair do sistema
+        // -----------------------------------------
+        
+        MenuItem exitItem = new MenuItem("Sair");
+        exitItem.addActionListener(e -> System.exit(0));
         menu.add(exitItem);
 
-        // Carrega o ícone do resources
+        // -----------------------------------------
+        // Ícone do SystemTray
+        // -----------------------------------------
         Image image = Toolkit.getDefaultToolkit().getImage(
                 getClass().getResource("/images/icon.png")
         );
@@ -39,6 +66,39 @@ public class SystemTrayHelper {
         }
     }
 
+    // -----------------------------------------
+    // Método modular para abrir a pasta monitorada
+    // -----------------------------------------
+    private void openMonitoredFolder() {
+        SwingUtilities.invokeLater(() -> {
+            File folder = new File("C:\\FileWatcher\\Monitored");
+
+            if (!folder.exists() || !folder.isDirectory()) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "A pasta não existe: " + folder.getAbsolutePath(),
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            try {
+                Desktop.getDesktop().open(folder);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Erro ao abrir a pasta: " + ex.getMessage(),
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        });
+    }
+
+    // -----------------------------------------
+    // Método para abrir a tela de configurações
+    // -----------------------------------------
     private void abrirConfiguracoes() {
         AdminLoginController auth = new AdminLoginController();
 
@@ -54,12 +114,21 @@ public class SystemTrayHelper {
             return;
         }
 
-        // 👉 aqui você abre a tela real de configurações
-        // Abre a tela de configurações real
         SwingUtilities.invokeLater(() -> {
             ClienteConfigDialog dialog = new ClienteConfigDialog((Frame) null);
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
         });
+    }
+    
+    //metodo trocar senha
+    private void trocarSenha(){
+        JOptionPane.showMessageDialog(
+                    null,
+                    "Médoto para trocar senha",
+                    "Resset Password",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
     }
 }
