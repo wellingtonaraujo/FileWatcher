@@ -55,11 +55,11 @@ public class SystemTrayHelper {
         }
 
         // 👉 aqui você abre a tela real de configurações
-        JOptionPane.showMessageDialog(
-                null,
-                "Administrador autenticado com sucesso!",
-                "Configurações",
-                JOptionPane.INFORMATION_MESSAGE
-        );
+        // Abre a tela de configurações real
+        SwingUtilities.invokeLater(() -> {
+            ClienteConfigDialog dialog = new ClienteConfigDialog((Frame) null);
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        });
     }
 }
