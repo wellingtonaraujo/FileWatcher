@@ -1,10 +1,16 @@
 package com.wellington.filewatcher;
 
 import com.wellington.filewatcher.controller.AdminLoginController;
+import com.wellington.filewatcher.service.ApiTestHelper;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import org.json.JSONObject;
 
 public class SystemTrayHelper {
 
@@ -41,6 +47,23 @@ public class SystemTrayHelper {
         menu.add(trocarSenha);
         menu.addSeparator();
         
+        // -----------------------------------------
+        // Menu teste do correio
+        // -----------------------------------------
+        
+        MenuItem meuEndereco = new MenuItem("Meu endereco");        
+        meuEndereco.addActionListener(e -> meuEndereco());
+        
+        menu.add(meuEndereco);
+        menu.addSeparator();
+        
+        // -----------------------------------------
+        // Menu teste de autenticação de API
+        // -----------------------------------------
+        
+        MenuItem testarApi = new MenuItem("Testar API");
+        testarApi.addActionListener(e -> ApiTestHelper.testarAutenticacao());
+        menu.add(testarApi);
         
         // -----------------------------------------
         // Menu Sair do sistema
@@ -131,4 +154,65 @@ public class SystemTrayHelper {
             );
             return;
     }
+    
+    private void meuEndereco() {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                String cep = "68903740";
+                String urlStr = "https://viacep.com.br/ws/" + cep + "/json/";
+
+                URL url = new URL(urlStr);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(5000);
+                conn.setReadTimeout(5000);
+
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(conn.getInputStream(), "UTF-8")
+                );
+
+                StringBuilder json = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    json.append(line);
+                }
+                reader.close();
+
+                JSONObject obj = new JSONObject(json.toString());
+
+                if (obj.has("erro")) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "CEP não encontrado.",
+                            "Erro",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                String endereco =
+                        "CEP: " + obj.getString("cep") + "\n" +
+                        "Logradouro: " + obj.getString("logradouro") + "\n" +
+                        "Bairro: " + obj.getString("bairro") + "\n" +
+                        "Cidade: " + obj.getString("localidade") + "\n" +
+                        "UF: " + obj.getString("uf");
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        endereco,
+                        "Meu Endereço",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Erro ao consultar o CEP:\n" + e.getMessage(),
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        });
+    }
+
 }
