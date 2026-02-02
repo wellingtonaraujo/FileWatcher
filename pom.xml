@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,27 +14,43 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- 👇 Define a versão do Java usada na compilação -->
+        <!-- Versão do Java -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
-        <!-- 👇 Classe principal usada para gerar o JAR executável -->
+        <!-- Classe principal -->
         <exec.mainClass>com.wellington.filewatcher.FileWatcher</exec.mainClass>
     </properties>
 
     <dependencies>
-        <!-- Conector MySQL atualizado -->
+
+        <!-- MySQL Connector -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>9.0.0</version>
         </dependency>
+
+        <!-- JSON (ViaCEP) -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
+        </dependency>
+
+        <!-- Dependencia para o integrador -->
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>3.14.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
 
-            <!-- 👇 Plugin para compilar com a versão correta do Java -->
+            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -43,7 +60,7 @@
                 </configuration>
             </plugin>
 
-            <!-- 👇 Plugin para criar um JAR executável -->
+            <!-- JAR executável -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -57,7 +74,7 @@
                 </configuration>
             </plugin>
 
-            <!-- 👇 Plugin opcional (para rodar direto pelo Maven: mvn exec:java) -->
+            <!-- Exec plugin -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -69,4 +86,5 @@
 
         </plugins>
     </build>
+
 </project>
