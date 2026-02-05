@@ -1,5 +1,7 @@
-package com.wellington.filewatcher;
+package com.wellington.easyeyeintegrator.config;
 
+import com.wellington.easyeyeintegrator.config.AppConfig;
+import com.wellington.easyeyeintegrator.config.ConfigUtil;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;

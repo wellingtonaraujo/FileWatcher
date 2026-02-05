@@ -1,5 +1,6 @@
-package com.wellington.filewatcher;
+package com.wellington.easyeyeintegrator.view;
 
+import com.wellington.easyeyeintegrator.controller.DatabaseHelper;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

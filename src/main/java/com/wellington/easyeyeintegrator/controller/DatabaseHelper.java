@@ -1,5 +1,6 @@
-package com.wellington.filewatcher;
+package com.wellington.easyeyeintegrator.controller;
 
+import com.wellington.easyeyeintegrator.service.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

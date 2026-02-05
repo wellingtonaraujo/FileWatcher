@@ -1,5 +1,7 @@
-package com.wellington.filewatcher;
+package com.wellington.easyeyeintegrator.view;
 
+import com.wellington.easyeyeintegrator.controller.ExameCsvRepository;
+import com.wellington.easyeyeintegrator.controller.ExameTipo;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;

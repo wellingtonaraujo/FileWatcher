@@ -1,7 +1,8 @@
-package com.wellington.filewatcher;
+package com.wellington.easyeyeintegrator;
 
-import com.wellington.filewatcher.controller.AdminLoginController;
-import com.wellington.filewatcher.service.ApiTestHelper;
+import com.wellington.easyeyeintegrator.config.ClienteConfigDialog;
+import com.wellington.easyeyeintegrator.controller.AdminLoginController;
+import com.wellington.easyeyeintegrator.service.ApiServices;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +63,7 @@ public class SystemTrayHelper {
         // -----------------------------------------
         
         MenuItem testarApi = new MenuItem("Testar API");
-        testarApi.addActionListener(e -> ApiTestHelper.testarAutenticacao());
+        testarApi.addActionListener(e -> ApiServices.authorizeAccess());
         menu.add(testarApi);
         
         // -----------------------------------------

@@ -1,4 +1,4 @@
-package com.wellington.filewatcher;
+package com.wellington.easyeyeintegrator.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package com.wellington.filewatcher;
+package com.wellington.easyeyeintegrator.controller;
 
 public class ExameTipo {
     private String exame;   // Nome completo do exame

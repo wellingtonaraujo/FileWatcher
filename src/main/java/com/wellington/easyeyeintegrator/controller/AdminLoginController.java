@@ -1,8 +1,8 @@
-package com.wellington.filewatcher.controller;
+package com.wellington.easyeyeintegrator.controller;
 
 import java.io.IOException;
-import com.wellington.filewatcher.AppConfig;
-import com.wellington.filewatcher.view.AdminLoginDialog;
+import com.wellington.easyeyeintegrator.config.AppConfig;
+import com.wellington.easyeyeintegrator.view.AdminLoginDialog;
 
 import javax.swing.*;
 import java.awt.*;

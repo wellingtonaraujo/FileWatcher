@@ -1,6 +1,6 @@
-package com.wellington.filewatcher.view;
+package com.wellington.easyeyeintegrator.view;
 
-import com.wellington.filewatcher.controller.AdminLoginController;
+import com.wellington.easyeyeintegrator.controller.AdminLoginController;
 
 import javax.swing.*;
 import java.awt.*;

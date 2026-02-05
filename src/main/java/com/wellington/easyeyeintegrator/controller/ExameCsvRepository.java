@@ -1,5 +1,6 @@
-package com.wellington.filewatcher;
+package com.wellington.easyeyeintegrator.controller;
 
+import com.wellington.easyeyeintegrator.config.ConfigUtil;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
