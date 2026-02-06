@@ -7,6 +7,10 @@ import com.wellington.easyeyeintegrator.config.ConfigUtil;
 import com.wellington.easyeyeintegrator.controller.AdminLoginController;
 import com.wellington.easyeyeintegrator.dto.AuthorizationResult;
 import com.wellington.easyeyeintegrator.service.ApiServices;
+
+import com.wellington.easyeyeintegrator.api.ApiClient;
+import com.wellington.easyeyeintegrator.api.dto.SignInResponse;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,11 +27,42 @@ public class EasyEyeIntegrator {
             ConfigUtil.getMonitoredDir().toString();
 
     public static void main(String[] args) {
+        System.out.println("Iniciando consulta a API");
+        ApiClient api = new ApiClient("https://env-7969016.ce.br.saveincloud.net.br/api");
 
         try {
-            inicializarDiretorios();
+            SignInResponse response = api.signIn(
+                    "eunice.dacruz@example.net",
+                    "123456789",
+                    "EI-0000000001"
+            );
 
-            logAmbiente();
+            System.out.println("TOKEN: " + response.getAccessToken());
+            System.out.println("USUÁRIO: " + response.getUser().name);
+
+        } catch (RuntimeException ex) {
+            // aqui vai aparecer: "Erro ao autenticar (HTTP 401): { ... }"
+            System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        System.exit(0);
+
+        try {
+            
+            //inicializa o sistema de pastas padrão do sistema, se não existir, cria as mesmas
+            inicializarDiretorios();
+            //Manga mensagem para a console mostrando o status da monitoração das pastas do sistema
+            //logAmbiente();
+            
+            //Verifica se é o primeiro acesso ao sistema
+            if (isFirstAccess()) {
+                executarPrimeiroAcesso();
+            }else{
+                System.out.println("Não é o promeiro acesso.");
+                System.exit(00);
+            }
 
             // 1️⃣ Autorização via API
             AuthorizationResult result = ApiServices.authorizeAccess();
@@ -35,12 +70,7 @@ public class EasyEyeIntegrator {
             if (!result.isAuthorized()) {
                 encerrarSistema(result.getReason());
                 return;
-            }
-
-            // 2️⃣ Primeiro acesso
-            if (isFirstAccess()) {
-                executarPrimeiroAcesso();
-            }
+            }            
 
             // 3️⃣ Inicializa System Tray
             iniciarSystemTray();

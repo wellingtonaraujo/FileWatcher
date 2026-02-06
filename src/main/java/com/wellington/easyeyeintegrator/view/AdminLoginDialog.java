@@ -8,6 +8,7 @@ import java.awt.*;
 public class AdminLoginDialog extends JDialog {
 
     private final JTextField txtUser = new JTextField();
+    private final JTextField txtCode = new JTextField();
     private final JPasswordField txtPass = new JPasswordField();
     private final JPasswordField txtConfirmPass = new JPasswordField();
     private final JTextField txtHint = new JTextField();
@@ -21,40 +22,56 @@ public class AdminLoginDialog extends JDialog {
         super(parent, "Autenticação do Administrador", true);
         this.controller = controller;
 
-        boolean firstAccess = controller.isFirstAccess();
+        JPanel content = new JPanel(new BorderLayout(10, 10));
+        content.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
-        setLayout(new GridLayout(firstAccess ? 6 : 3, 2, 10, 10));
+        JPanel form = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(6, 6, 6, 6);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        add(label("Login:"));
-        add(txtUser);
+        int row = 0;
 
-        add(label("Senha:"));
-        add(txtPass);
+        row = addRow(form, gbc, row, "E-mail:", txtUser);
+        row = addRow(form, gbc, row, "Senha:", txtPass);
+        row = addRow(form, gbc, row, "Código:", txtCode);
 
-        if (firstAccess) {
-            add(label("Confirmar Senha:"));
-            add(txtConfirmPass);
-
-            add(label("Dica da Senha:"));
-            add(txtHint);
-            
-            add(label("E-mail de recuperação:"));
-            add(txtEmail);
-        }        
-
-        JButton btnOk = new JButton(firstAccess ? "Criar Administrador" : "Entrar");
+        JButton btnOk = new JButton(
+            controller.isFirstAccess() ? "Criar Administrador" : "Entrar"
+        );
         JButton btnCancel = new JButton("Cancelar");
 
         btnOk.addActionListener(e -> controller.handleLogin(this));
         btnCancel.addActionListener(e -> dispose());
 
-        add(btnOk);
-        add(btnCancel);
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        buttons.add(btnOk);
+        buttons.add(btnCancel);
 
+        content.add(form, BorderLayout.CENTER);
+        content.add(buttons, BorderLayout.SOUTH);
+
+        setContentPane(content);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(360, firstAccess ? 260 : 170);
+        pack();
+        setResizable(false);
         setLocationRelativeTo(parent);
     }
+
+    // Helper para adicionar uma linha "Label + Campo"
+    private int addRow(JPanel panel, GridBagConstraints gbc, int row, String labelText, JComponent field) {
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0;
+        panel.add(new JLabel(labelText), gbc);
+
+        gbc.gridx = 1;
+        gbc.weightx = 1; // campo ocupa o resto
+        panel.add(field, gbc);
+
+        return row + 1;
+    }
+
 
     private JLabel label(String text) {
         JLabel l = new JLabel(text);

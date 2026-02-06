@@ -32,15 +32,6 @@ public class AdminLoginController {
         }
 
         if (firstAccess) {
-
-            if (!senha.equals(dialog.getConfirmPassword())) {
-                JOptionPane.showMessageDialog(dialog,
-                        "As senhas não conferem",
-                        "Erro",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
             try {
                 AppConfig.saveAdminCredentials(login, senha, dialog.getHint());
 
